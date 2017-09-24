@@ -1,5 +1,5 @@
-local Class = require("libs.hump.class")
-local encoder = require("utils.s_encoder")
+local Class = require('libs.hump.class')
+local encoder = require('utils.s_encoder')
 
 local Ent = Class{}
 
@@ -28,7 +28,7 @@ function Ent:move(x, y, dt)
 end
 
 function Ent:send_spawn_info(ip, port)
-  print(string.format("Sending spawn info for id=%d to ip=%s, port=%s", self.id, ip, port))
+  print(string.format('Sending spawn info for id=%d to ip=%s, port=%s', self.id, ip, port))
   self.udp:sendto(encoder:encode_spawn(self), ip, port)
 end
 

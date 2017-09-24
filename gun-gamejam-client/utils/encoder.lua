@@ -1,4 +1,4 @@
-local json = require("libs.json.json")
+local json = require('libs.json.json')
 
 local encoder = {}
 
@@ -17,7 +17,7 @@ local encoder = {}
 function encoder:encode_move(player)
   return json.encode({
     ent_id = player.id,
-    cmd = "move",
+    cmd = 'move',
     params = {x = player.kb.x, y = player.kb.y},
   })
 end
@@ -27,7 +27,7 @@ end
 function encoder:encode_new_ent(ent_id)
   return json.encode({
     ent_id = 0,
-    cmd = "new_ent",
+    cmd = 'new_ent',
     params = {ent_id = ent_id},
   })
 end
@@ -36,7 +36,7 @@ end
 -- output: ent's spawn info
 -- Note: server decides ent id and spawn position
 function encoder:encode_spawn(player)
-  return json.encode({ent_id = 0, cmd = "spawn", params = {}})
+  return json.encode({ent_id = 0, cmd = 'spawn', params = {}})
 end
 
 return encoder

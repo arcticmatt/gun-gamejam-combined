@@ -1,12 +1,12 @@
-local Class  = require("libs.hump.class")
-local Ent = require("entities.ent")
-local vector = require("libs.hump.vector")
+local Class  = require('libs.hump.class')
+local Ent = require('entities.ent')
+local vector = require('libs.hump.vector')
 
 local Player = Class{
   __includes = Ent -- Player class inherits our Ent class
 }
 
-local directions = {up="up", down="down", left="left", right="right"}
+local directions = {up='up', down='down', left='left', right='right'}
 
 function Player:init(p)
   Ent.init(self, p)
@@ -27,7 +27,7 @@ function Player:update_state(cmd, params)
 end
 
 function Player:draw()
-  love.graphics.rectangle("fill", self:getRect())
+  love.graphics.rectangle('fill', self:getRect())
 end
 
 -- Populates the input array with the keys that the player is pressing down

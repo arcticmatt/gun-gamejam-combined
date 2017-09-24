@@ -1,4 +1,4 @@
-local Class = require("libs.hump.class")
+local Class = require('libs.hump.class')
 
 local Ent = Class{}
 
@@ -18,7 +18,7 @@ end
 function Ent:draw()
   -- TODO: this should probably do nothing. subclasses should contain drawing logic
   -- Draw a rectangle by default
-  love.graphics.rectangle("fill", self:getRect())
+  love.graphics.rectangle('fill', self:getRect())
 end
 
 function Ent:update(dt)

@@ -1,8 +1,8 @@
-local socket = require("socket")
-local ents = require("entities.s_ents")
-local Player = require("entities.s_player")
-local decoder = require("utils.s_decoder")
-local encoder = require("utils.s_encoder")
+local socket = require('socket')
+local ents = require('entities.s_ents')
+local Player = require('entities.s_player')
+local decoder = require('utils.s_decoder')
+local encoder = require('utils.s_encoder')
 local udp = socket.udp()
 
 udp:settimeout(0)
@@ -26,7 +26,7 @@ function get_unused_id()
 end
 
 -- ===== Main loop =====
-print "Beginning server loop."
+print 'Beginning server loop.'
 while true do
   -- Do time calculations at beginning
   current_time = socket.gettime()
@@ -61,10 +61,10 @@ while true do
         print(string.format('Error! New ent was requested, but id=%d does not exist', params.ent_id))
       end
     else
-      print("unrecognised command:", cmd)
+      print('unrecognised command:', cmd)
     end
   elseif ip ~= 'timeout' then
-    error("Unknown network error: "..tostring(msg))
+    error('Unknown network error: '..tostring(msg))
   end
 
   if current_time - previous_broadcast > broadcast_interval then
@@ -76,4 +76,4 @@ while true do
   socket.sleep(0.01)
 end
 
-print "Finished server loop."
+print 'Finished server loop.'

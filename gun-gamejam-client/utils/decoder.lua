@@ -1,5 +1,5 @@
-local json = require("libs.json.json")
-local Ent = require("entities.ent")
+local json = require('libs.json.json')
+local Ent = require('entities.ent')
 
 local decoder = {}
 

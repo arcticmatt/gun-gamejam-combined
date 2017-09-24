@@ -1,6 +1,6 @@
-local Class  = require("libs.hump.class")
-local Ent = require("entities.s_ent")
-local vector = require("libs.hump.vector")
+local Class  = require('libs.hump.class')
+local Ent = require('entities.s_ent')
+local vector = require('libs.hump.vector')
 
 local Player = Class{
   __includes = Ent -- Player class inherits our Ent class
@@ -24,7 +24,7 @@ function Player:move(x, y, dt)
 end
 
 function Player:draw()
-  love.graphics.rectangle("fill", self:getRect())
+  love.graphics.rectangle('fill', self:getRect())
 end
 
 return Player

@@ -1,5 +1,5 @@
 -- TODO: make a separate library, so client and server don't repeat
-local json = require("libs.json.json")
+local json = require('libs.json.json')
 
 local encoder = {}
 
@@ -16,13 +16,13 @@ local encoder = {}
 -- input: an ent
 -- output: ent's spawn info
 function encoder:encode_spawn(ent)
-  return encode_position(ent, "spawn")
+  return encode_position(ent, 'spawn')
 end
 
 -- input: an ent
 -- output: ent's move info
 function encoder:encode_at(ent)
-  return encode_position(ent, "at")
+  return encode_position(ent, 'at')
 end
 
 -- input: an ent
@@ -31,7 +31,7 @@ function encoder:encode_ent(ent)
   -- Only encode relevant fields
   return json.encode({
     ent_id = ent.id,
-    cmd = "new_ent",
+    cmd = 'new_ent',
     params = {
       x = ent.x,
       y = ent.y,

@@ -1,15 +1,15 @@
-local bump = require("libs.bump.bump")
-local Gamestate = require("libs.hump.gamestate")
-local ents = require("entities.ents") -- from server
-local Ent = require("entities.ent")
-local Player = require("entities.player")
-local decoder = require("utils.decoder")
-local encoder = require("utils.encoder")
-local socket = require("socket")
+local bump = require('libs.bump.bump')
+local Gamestate = require('libs.hump.gamestate')
+local ents = require('entities.ents') -- from server
+local Ent = require('entities.ent')
+local Player = require('entities.player')
+local decoder = require('utils.decoder')
+local encoder = require('utils.encoder')
+local socket = require('socket')
 
 -- TODO add config changing for this
 -- the address and port of the server
-local address, port = "localhost", 12345
+local address, port = 'localhost', 12345
 
 local updaterate = 0.1 -- how long to wait, in seconds, before requesting an update
 
@@ -20,7 +20,7 @@ local level = {}
 local player = nil
 
 function level:enter()
-  print("Entering level")
+  print('Entering level')
   -- Setting up networking
   udp = assert(socket.udp())
   udp:settimeout(0)
@@ -85,10 +85,10 @@ function level:update(dt)
         local new_ent = Ent(params)
         ents:add(new_ent.id, new_ent)
       else
-        print("unrecognised command:", cmd)
+        print('unrecognised command:', cmd)
       end
     elseif msg ~= 'timeout' then
-			error("Network error: "..tostring(msg))
+			error('Network error: '..tostring(msg))
     end
 	until not data
 

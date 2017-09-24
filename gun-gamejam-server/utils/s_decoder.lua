@@ -1,4 +1,4 @@
-local json = require("libs.json.json")
+local json = require('libs.json.json')
 
 local decoder = {}
 
