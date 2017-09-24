@@ -5,9 +5,3 @@ function love.load()
   Gamestate.registerEvents()
   Gamestate.switch(menu)
 end
-
-function love.keypressed(key)
-  if key == 'escape' or key == 'q' then
-    love.event.push('quit')
-  end
-end

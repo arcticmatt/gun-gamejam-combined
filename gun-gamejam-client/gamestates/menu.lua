@@ -1,5 +1,5 @@
 Gamestate = require('libs.hump.gamestate')
-level     = require('gamestates.level')
+level = require('gamestates.level')
 
 -- Create our Gamestate
 local menu = {}
@@ -16,7 +16,13 @@ end
 
 function menu:keyreleased(key, code)
   if key == 'return' then
-    Gamestate.switch(level)
+    Gamestate.push(level)
+  end
+end
+
+function menu:keypressed(key)
+  if key == 'escape' or key == 'q' then
+    love.event.push('quit')
   end
 end
 

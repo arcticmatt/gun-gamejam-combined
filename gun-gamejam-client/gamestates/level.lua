@@ -103,6 +103,12 @@ function level:draw()
   ents:draw()
 end
 
+function level:keypressed(key)
+  if key == 'escape' or key == 'q' then
+    Gamestate.pop()
+  end
+end
+
 -- ===== Helper functions =====
 function send_self_spawn()
   udp:send(encoder:encode_spawn())
