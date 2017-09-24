@@ -1,0 +1,18 @@
+[submodule "gun-gamejam-client/libs/bump"]
+	path = gun-gamejam-client/libs/bump
+	url = https://github.com/kikito/bump.lua.git
+[submodule "gun-gamejam-client/libs/hump"]
+	path = gun-gamejam-client/libs/hump
+	url = https://github.com/vrld/hump.git
+[submodule "gun-gamejam-client/libs/json"]
+	path = gun-gamejam-client/libs/json
+	url = https://github.com/rxi/json.lua.git
+[submodule "gun-gamejam-server/libs/json"]
+	path = gun-gamejam-server/libs/json
+	url = https://github.com/rxi/json.lua.git
+[submodule "gun-gamejam-server/libs/hump"]
+	path = gun-gamejam-server/libs/hump
+	url = https://github.com/vrld/hump.git
+[submodule "gun-gamejam-server/libs/bump"]
+	path = gun-gamejam-server/libs/bump
+	url = https://github.com/kikito/bump.lua.git
