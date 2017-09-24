@@ -7,6 +7,7 @@ This repository contains code for the server and client.
 Run the following commands to clone the repository and load its submodules.
 ```
 git clone https://github.com/arcticmatt/gun-gamejam-combined.git
+cd gun-gamejam-combined
 git submodule update --init
 ```
 
