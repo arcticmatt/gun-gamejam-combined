@@ -32,6 +32,12 @@ function encoder:encode_new_ent(ent_id)
   })
 end
 
+-- input: ent_id
+-- output: quit message
+function encoder:encode_quit(ent_id)
+  return json.encode({ent_id = ent_id, cmd = 'quit', params = {}})
+end
+
 -- input: an ent
 -- output: ent's spawn info
 -- Note: server decides ent id and spawn position

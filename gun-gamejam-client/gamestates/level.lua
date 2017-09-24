@@ -105,6 +105,7 @@ end
 
 function level:keypressed(key)
   if key == 'escape' or key == 'q' then
+    send_quit()
     Gamestate.pop()
   end
 end
@@ -126,6 +127,10 @@ function receive_self_spawn()
       return Player{x=x, y=y, w=32, h=32, id=ent_id}
     end
   end
+end
+
+function send_quit()
+  udp:send(encoder:encode_quit(player.id))
 end
 
 return level

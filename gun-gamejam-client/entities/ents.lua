@@ -2,8 +2,8 @@ local ents = {
   entMap = {},
 }
 
-function ents:add(key, entity)
-  self.entMap[key] = entity
+function ents:add(ent_id, entity)
+  self.entMap[ent_id] = entity
 end
 
 function ents:add_many(ents)
@@ -12,12 +12,12 @@ function ents:add_many(ents)
   end
 end
 
-function ents:has_ent(id)
-  return self.entMap[id] ~= nil
+function ents:has_ent(ent_id)
+  return self.entMap[ent_id] ~= nil
 end
 
-function ents:get_ent(id)
-  return self.entMap[id]
+function ents:get_ent(ent_id)
+  return self.entMap[ent_id]
 end
 
 function ents:clear()

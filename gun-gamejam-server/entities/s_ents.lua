@@ -3,8 +3,8 @@ local ents = {
   clients = {}, -- 'ip:port' -> {ip = ip, port = port}
 }
 
-function ents:add(key, ent)
-  self.entMap[key] = ent
+function ents:add(ent_id, ent)
+  self.entMap[ent_id] = ent
 end
 
 function ents:add_many(ents)
@@ -13,12 +13,17 @@ function ents:add_many(ents)
   end
 end
 
-function ents:has_ent(id)
-  return self.entMap[id] ~= nil
+function ents:has_ent(ent_id)
+  return self.entMap[ent_id] ~= nil
 end
 
-function ents:get_ent(id)
-  return self.entMap[id]
+function ents:get_ent(ent_id)
+  return self.entMap[ent_id]
+end
+
+function ents:remove(ent_id)
+  print(string.format('Removing ent with id=%d', ent_id))
+  self.entMap[ent_id] = nil
 end
 
 function ents:clear()
@@ -44,10 +49,20 @@ function ents:send_at_info()
 end
 
 function ents:add_client(ip, port)
-  local key = ip .. port
+  local key = make_key(ip, port)
   if not self.clients[key] then
     self.clients[key] = {ip = ip, port = port}
   end
+end
+
+function ents:remove_client(ip, port)
+  print(string.format('Removing client with ip=%s, port=%s', ip, port))
+  self.clients[make_key(ip, port)] = nil
+end
+
+-- ===== Helper functions =====
+function make_key(ip, port)
+  return ip .. port
 end
 
 return ents

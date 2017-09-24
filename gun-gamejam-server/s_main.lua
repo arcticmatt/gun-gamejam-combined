@@ -60,6 +60,9 @@ while true do
       else
         print(string.format('Error! New ent was requested, but id=%d does not exist', params.ent_id))
       end
+    elseif cmd == 'quit' then
+      ents:remove(ent_id)
+      ents:remove_client(ip, port)
     else
       print('unrecognised command:', cmd)
     end
