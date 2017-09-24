@@ -36,7 +36,7 @@ while true do
     elseif cmd == 'new_ent' then
       commands:handle_new_ent(ents, params, udp, ip, port)
     elseif cmd == 'quit' then
-      commands:handle_quit(ents, ent_id, ip, port)
+      commands:handle_quit(ents, ent_id, udp, ip, port)
     else
       print('unrecognised command:', cmd)
     end

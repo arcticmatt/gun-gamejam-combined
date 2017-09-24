@@ -12,6 +12,11 @@ function ents:add_many(ents)
   end
 end
 
+function ents:remove(ent_id)
+  print(string.format('Removing ent with id=%d', ent_id))
+  self.entMap[ent_id] = nil
+end
+
 function ents:has_ent(ent_id)
   return self.entMap[ent_id] ~= nil
 end

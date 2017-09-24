@@ -42,6 +42,12 @@ function encoder:encode_ent(ent)
   })
 end
 
+-- input: an ent id
+-- output: removal info
+function encoder:encode_remove(ent_id)
+  return json.encode({ent_id = ent_id, cmd = 'remove', params = {}})
+end
+
 -- ===== Helper functions =====
 function encode_position(ent, cmd)
   return json.encode({ent_id = ent.id, cmd = cmd, params = {x = ent.x, y = ent.y}})

@@ -27,9 +27,10 @@ function commands:handle_new_ent(ents, params, udp, ip, port)
   end
 end
 
-function commands:handle_quit(ents, ent_id, ip, port)
+function commands:handle_quit(ents, ent_id, udp, ip, port)
   ents:remove(ent_id)
   ents:remove_client(ip, port)
+  ents:send_remove_info(ent_id, udp)
 end
 
 return commands

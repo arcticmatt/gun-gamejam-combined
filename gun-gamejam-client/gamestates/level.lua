@@ -69,6 +69,7 @@ function level:update(dt)
   repeat
     data, msg = udp:receive()
 
+    -- TODO: refactor this shit
     if data then
       ent_id, cmd, params = decoder:decode_data(data)
       if cmd == 'at' then
@@ -84,6 +85,8 @@ function level:update(dt)
         -- e.g. for new players, we should make a new Player object, not a new Ent
         local new_ent = Ent(params)
         ents:add(new_ent.id, new_ent)
+      elseif cmd == 'remove' then
+        ents:remove(ent_id)
       else
         print('unrecognised command:', cmd)
       end
