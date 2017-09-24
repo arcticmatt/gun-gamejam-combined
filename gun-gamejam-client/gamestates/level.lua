@@ -1,10 +1,10 @@
+-- TODO: clean up imports
 local bump = require('libs.bump.bump')
 local Gamestate = require('libs.hump.gamestate')
 local ents = require('entities.ents') -- from server
-local Ent = require('entities.ent')
-local Player = require('entities.player')
 local decoder = require('utils.decoder')
 local encoder = require('utils.encoder')
+local commands = require('commands.commands')
 local socket = require('socket')
 
 -- TODO add config changing for this
@@ -27,7 +27,7 @@ function level:enter()
   udp:setpeername(address, port)
   math.randomseed(os.time())
 
-  send_self_spawn()
+  send_spawn()
   player = nil
 
   -- t is a variable we use to help us with the update rate in love.update.
@@ -42,7 +42,7 @@ function level:update(dt)
   if not player then
     print('Waiting to spawn...')
 
-    player = receive_self_spawn()
+    player = receive_spawn()
 
     if player then
       ents:add(player.id, player)
@@ -69,24 +69,14 @@ function level:update(dt)
   repeat
     data, msg = udp:receive()
 
-    -- TODO: refactor this shit
     if data then
       ent_id, cmd, params = decoder:decode_data(data)
       if cmd == 'at' then
-        if ents:has_ent(ent_id) then
-          ents:update_state(ent_id, cmd, params)
-        else
-          -- Send request for new ent
-          print(string.format('Sending request for new ent with id=%d', ent_id))
-          udp:send(encoder:encode_new_ent(ent_id))
-        end
+        commands:handle_at(ents, ent_id, cmd, params, udp)
       elseif cmd == 'new_ent' then
-        -- TODO: refactor to use subclasses? should Ent be abstract?
-        -- e.g. for new players, we should make a new Player object, not a new Ent
-        local new_ent = Ent(params)
-        ents:add(new_ent.id, new_ent)
+        commands:handle_new_ent(ents, params)
       elseif cmd == 'remove' then
-        ents:remove(ent_id)
+        commands:handle_remove(ents, ent_id)
       else
         print('unrecognised command:', cmd)
       end
@@ -114,20 +104,17 @@ function level:keypressed(key)
 end
 
 -- ===== Helper functions =====
-function send_self_spawn()
+function send_spawn()
   udp:send(encoder:encode_spawn())
 end
 
-function receive_self_spawn()
+function receive_spawn()
   local data, msg = udp:receive()
 
   if data then
     ent_id, cmd, params = decoder:decode_data(data)
     if cmd == 'spawn' then
-  		local x, y = params.x, params.y
-      print(string.format('Spawning player with id=%d at x=%d, y=%d', ent_id, x, y))
-      assert(x and y)
-      return Player{x=x, y=y, w=32, h=32, id=ent_id}
+      return commands:handle_spawn(ent_id, params)
     end
   end
 end

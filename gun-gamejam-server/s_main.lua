@@ -1,6 +1,5 @@
 local socket = require('socket')
 local ents = require('entities.s_ents')
-local Player = require('entities.s_player')
 local decoder = require('utils.s_decoder')
 local commands = require('commands.commands')
 local udp = socket.udp()
