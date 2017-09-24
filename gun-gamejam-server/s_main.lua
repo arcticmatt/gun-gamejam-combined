@@ -6,7 +6,7 @@ local encoder = require("utils.s_encoder")
 local udp = socket.udp()
 
 udp:settimeout(0)
-udp:setsockname('192.168.0.10', 12345)
+udp:setsockname('*', 12345)
 
 local data, ip, port, cmd, params, dt, current_time
 local broadcast_interval = 0.1

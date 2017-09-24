@@ -9,7 +9,7 @@ local socket = require("socket")
 
 -- TODO add config changing for this
 -- the address and port of the server
-local address, port = "192.168.0.10", 12345
+local address, port = "localhost", 12345
 
 local updaterate = 0.1 -- how long to wait, in seconds, before requesting an update
 
