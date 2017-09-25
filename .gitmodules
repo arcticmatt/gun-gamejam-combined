@@ -7,6 +7,9 @@
 [submodule "gun-gamejam-client/libs/json"]
 	path = gun-gamejam-client/libs/json
 	url = https://github.com/rxi/json.lua.git
+[submodule "gun-gamejam-client/libs/anim8"]
+	path = gun-gamejam-client/libs/anim8
+	url = https://github.com/kikito/anim8.git
 [submodule "gun-gamejam-server/libs/json"]
 	path = gun-gamejam-server/libs/json
 	url = https://github.com/rxi/json.lua.git
