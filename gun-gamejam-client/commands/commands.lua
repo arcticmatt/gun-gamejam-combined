@@ -16,7 +16,7 @@ end
 function commands:handle_new_ent(ents, params)
   -- TODO: refactor to use subclasses? should Ent be abstract?
   -- e.g. for new players, we should make a new Player object, not a new Ent
-  local new_ent = new Ent(params)
+  local new_ent = Ent(params)
   ents:add(new_ent.id, new_ent)
 end
 
