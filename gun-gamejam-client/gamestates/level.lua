@@ -4,6 +4,7 @@ local Gamestate = require('libs.hump.gamestate')
 local ents = require('entities.ents') -- from server
 local decoder = require('utils.decoder')
 local encoder = require('utils.encoder')
+local sprite_loader = require('utils.sprite_loader')
 local commands = require('commands.commands')
 local socket = require('socket')
 
@@ -21,6 +22,10 @@ local player = nil
 
 function level:enter()
   print('Entering level')
+  -- Set up sprites
+  love.graphics.setDefaultFilter('nearest', 'nearest')
+  sprite_loader:loadSprites()
+
   -- Setting up networking
   udp = assert(socket.udp())
   udp:settimeout(0)
@@ -54,7 +59,7 @@ function level:update(dt)
   -- Update player
   -- Note: this is the only ent that updates on the client (where updating means
   -- changing some variables). All other ents update entirely based on the server.
-  player:update()
+  player:update(dt)
 
   -- Increase t by the dt
 	t = t + dt

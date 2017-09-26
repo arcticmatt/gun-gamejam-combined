@@ -8,7 +8,7 @@ udp:settimeout(0)
 udp:setsockname('*', 12345)
 
 local data, ip, port, cmd, params, dt, current_time
-local broadcast_interval = 0.1
+local broadcast_interval = 0.05
 local previous_time = socket.gettime()
 local previous_broadcast = socket.gettime()
 

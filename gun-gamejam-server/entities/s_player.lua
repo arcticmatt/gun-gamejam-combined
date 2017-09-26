@@ -11,7 +11,7 @@ function Player:init(x, y, w, h, udp, ip, port, id)
   self.ip = ip
   self.port = port
   self.kb = vector(0, 0)
-  self.baseVelocity = 300
+  self.baseVelocity = 600
 end
 
 function Player:move(x, y, dt)
