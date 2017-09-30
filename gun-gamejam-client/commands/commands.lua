@@ -25,10 +25,10 @@ function commands:handle_remove(ents, ent_id)
 end
 
 function commands:handle_spawn(ent_id, params)
-	local x, y = params.x, params.y
+	local x, y, w, h = params.x, params.y, params.w, params.h
   print(string.format('Spawning player with id=%d at x=%d, y=%d', ent_id, x, y))
-  assert(x and y)
-  return Player{x=x, y=y, w=32, h=32, id=ent_id}
+  assert(x and y and w and h)
+  return Player{x=x, y=y, w=w, h=h, id=ent_id}
 end
 
 return commands

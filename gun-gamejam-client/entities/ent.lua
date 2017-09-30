@@ -11,6 +11,14 @@ function Ent:init(p)
   self.id = p.id
 end
 
+function Ent:getDrawPosition()
+  return self.x - self.w / 2, self.y - self.h / 2
+end
+
+function Ent:getPosition()
+  return self.x, self.y
+end
+
 function Ent:getRect()
   return self.x, self.y, self.w, self.h
 end
