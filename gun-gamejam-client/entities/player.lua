@@ -3,6 +3,7 @@ local Ent = require('entities.ent')
 local vector = require('libs.hump.vector')
 local sprite_loader = require('utils.sprite_loader')
 local anim8 = require('libs.anim8.anim8')
+local utils = require('utils.utils')
 
 local Player = Class{
   __includes = Ent -- Player class inherits our Ent class
@@ -21,6 +22,8 @@ function Player:init(p)
   Ent.init(self, p)
   -- All we need is input. Everything else on server
   self.kb = vector(0, 0)
+
+  self.type = utils.types.player
 
   spr, g = sprite_loader:getPlayerData()
   self.dw, self.dh = g.frameWidth, g.frameHeight

@@ -38,6 +38,7 @@ function encoder:encode_ent(ent)
       w = ent.w,
       h = ent.h,
       id = ent.id,
+      type = ent.type,
     },
   })
 end

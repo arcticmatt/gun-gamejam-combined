@@ -1,6 +1,7 @@
 local Class  = require('libs.hump.class')
 local Ent = require('entities.s_ent')
 local vector = require('libs.hump.vector')
+local utils = require('utils.s_utils')
 
 local Player = Class{
   __includes = Ent -- Player class inherits our Ent class
@@ -10,6 +11,7 @@ function Player:init(x, y, w, h, udp, ip, port, id)
   Ent.init(self, x, y, w, h, udp, id)
   self.ip = ip
   self.port = port
+  self.type = utils.types.player -- OVERRIDE
   self.kb = vector(0, 0)
   self.baseVelocity = 1000
 end

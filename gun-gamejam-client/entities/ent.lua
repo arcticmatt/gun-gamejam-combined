@@ -1,4 +1,5 @@
 local Class = require('libs.hump.class')
+local utils = require('utils.utils')
 
 local Ent = Class{}
 
@@ -9,6 +10,7 @@ function Ent:init(p)
   self.w = p.w
   self.h = p.h
   self.id = p.id
+  self.type = utils.types.ent
 end
 
 function Ent:getDrawPosition()

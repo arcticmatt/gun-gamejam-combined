@@ -1,3 +1,9 @@
+local utils = require('utils.utils')
+
+-- Ents go here
+local Ent = require('entities.ent')
+local Player = require('entities.player')
+
 local ents = {
   entMap = {},
 }
@@ -38,6 +44,14 @@ end
 function ents:update_state(ent_id, cmd, params)
   assert(self.entMap[ent_id])
   self.entMap[ent_id]:update_state(cmd, params)
+end
+
+function ents.factory(type, params)
+  if type == utils.types.ent then
+    return Ent(params)
+  elseif type == utils.types.player then
+    return Player(params)
+  end
 end
 
 return ents

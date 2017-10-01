@@ -12,4 +12,6 @@ function utils:get_unused_id(ents)
   return id
 end
 
+utils.types = { ent="ENT", player="PLAYER" } -- sync with client
+
 return utils
