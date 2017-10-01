@@ -10,7 +10,7 @@ local Player = Class{
 }
 
 local dw, dh
-local facingLeft = false
+local facing_left = false
 local spr, idle_anim, run_anim
 local input = {up='up', down='down', left='left', right='right'}
 local state
@@ -48,12 +48,12 @@ function Player:resolveState(dt)
     end
 
     -- Handle facing direction
-    if facingLeft and self.kb.x > 0 then
+    if facing_left and self.kb.x > 0 then
       self:flip()
-      facingLeft = false
-    elseif not facingLeft and self.kb.x < 0 then
+      facing_left = false
+    elseif not facing_left and self.kb.x < 0 then
       self:flip()
-      facingLeft = true
+      facing_left = true
     end
 
     run_anim:update(dt)
