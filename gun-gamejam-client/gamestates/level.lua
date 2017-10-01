@@ -27,10 +27,21 @@ function level:enter()
   sprite_loader:loadSprites()
 
   -- Setting up networking
+  -- TCP stuff
+  print(string.format('Connecting to %s:%d...', address, port))
+  tcp = assert(socket.tcp())
+  tcp:settimeout(60) -- TODO: change this?
+  tcp:connect(address, port)
+  i, p = tcp:getsockname()
+  -- UDP stuff
   udp = assert(socket.udp())
+  udp:setsockname(i, p)
+  iu, pu = udp:getsockname()
+  assert(i == iu and p == pu) -- tcp and udp sockets have the same location
   udp:settimeout(0)
   udp:setpeername(address, port)
   math.randomseed(os.time())
+  print(string.format('Connected to TCP & UDP! Client is located at %s:%d', i, p))
 
   send_spawn()
   player = nil
@@ -45,7 +56,7 @@ end
 function level:update(dt)
   -- Spawn player
   if not player then
-    print('Waiting to spawn...')
+    -- print('Waiting to spawn...')
 
     player = receive_spawn()
 
@@ -103,6 +114,7 @@ end
 
 function level:keypressed(key)
   if key == 'escape' or key == 'q' then
+    print('Quitting the game\n')
     send_quit()
     Gamestate.pop()
   end

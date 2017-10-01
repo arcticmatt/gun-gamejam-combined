@@ -1,13 +1,13 @@
 local Player = require('entities.s_player')
 local encoder = require('utils.s_encoder')
-local utils = require('utils.utils')
+local utils = require('utils.s_utils')
 
 local commands = {}
 
 function commands:handle_spawn(ents, udp, ip, port, id)
   local id = utils:get_unused_id(ents)
   local new_player = Player(400, 200, 64, 64, udp, ip, port, id)
-  ents:add(id, new_player)
+  ents:add_player(id, new_player, ip, port)
   new_player:send_spawn_info(ip, port)
 end
 
@@ -28,9 +28,7 @@ function commands:handle_new_ent(ents, params, udp, ip, port)
 end
 
 function commands:handle_quit(ents, ent_id, udp, ip, port)
-  ents:remove(ent_id)
-  ents:remove_client(ip, port)
-  ents:send_remove_info(ent_id, udp)
+  ents:handle_quit(ent_id, udp, ip, port)
 end
 
 return commands
