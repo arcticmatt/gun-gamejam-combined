@@ -1,5 +1,6 @@
 -- TODO: make a separate library, so client and server don't repeat
 local json = require('libs.json.json')
+local utils = require('utils.s_utils')
 
 local encoder = {}
 
@@ -28,7 +29,12 @@ end
 -- input: an ent
 -- output: serialized ent
 function encoder:encode_ent(ent)
-  -- Only encode relevant fields
+  -- pass work off to encoders for specific subclasses. if the type is just ent,
+  -- we'll do the encoding here.
+  if ent.type == utils.types.player then
+    return self:encode_player(ent)
+  end
+
   return json.encode({
     ent_id = ent.id,
     cmd = 'new_ent',
@@ -38,6 +44,23 @@ function encoder:encode_ent(ent)
       w = ent.w,
       h = ent.h,
       id = ent.id,
+      type = ent.type,
+    },
+  })
+end
+
+function encoder:encode_player(ent)
+  return json.encode({
+    ent_id = ent.id,
+    cmd = 'new_ent',
+    params = {
+      x = ent.x,
+      y = ent.y,
+      w = ent.w,
+      h = ent.h,
+      id = ent.id,
+      type = ent.type,
+      
     },
   })
 end
