@@ -3,13 +3,14 @@ local Ent = require('entities.ent')
 local vector = require('libs.hump.vector')
 local sprite_loader = require('utils.sprite_loader')
 local anim8 = require('libs.anim8.anim8')
+local utils = require('utils.utils')
 
 local Player = Class{
   __includes = Ent -- Player class inherits our Ent class
 }
 
 local dw, dh
-local facingLeft = false
+local facing_left = false
 local spr, idle_anim, run_anim
 local input = {up='up', down='down', left='left', right='right'}
 local state
@@ -21,6 +22,8 @@ function Player:init(p)
   Ent.init(self, p)
   -- All we need is input. Everything else on server
   self.kb = vector(0, 0)
+
+  self.type = utils.types.player
 
   spr, g = sprite_loader:getPlayerData()
   self.dw, self.dh = g.frameWidth, g.frameHeight
@@ -45,12 +48,12 @@ function Player:resolveState(dt)
     end
 
     -- Handle facing direction
-    if facingLeft and self.kb.x > 0 then
+    if facing_left and self.kb.x > 0 then
       self:flip()
-      facingLeft = false
-    elseif not facingLeft and self.kb.x < 0 then
+      facing_left = false
+    elseif not facing_left and self.kb.x < 0 then
       self:flip()
-      facingLeft = true
+      facing_left = true
     end
 
     run_anim:update(dt)
