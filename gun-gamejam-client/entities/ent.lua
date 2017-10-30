@@ -13,10 +13,6 @@ function Ent:init(p)
   self.type = utils.types.ent
 end
 
-function Ent:getDrawPosition()
-  return self.x - self.w / 2, self.y - self.h / 2
-end
-
 function Ent:getPosition()
   return self.x, self.y
 end

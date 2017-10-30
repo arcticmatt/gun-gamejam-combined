@@ -103,15 +103,11 @@ function Player:flip()
   idle_anim:flipH()
 end
 
-function Player:getDrawPosition()
-  return self.x - self.dw / 2, self.y - self.dh / 2
-end
-
 function Player:draw()
   if state == states.run then
-    run_anim:draw(spr, self:getDrawPosition())
+    run_anim:draw(spr, self:getPosition())
   elseif state == states.idle then
-    idle_anim:draw(spr, self:getDrawPosition())
+    idle_anim:draw(spr, self:getPosition())
   end
 end
 
@@ -128,8 +124,9 @@ function Player:getInputs()
 end
 
 function Player:updateDirection(mouse_x, mouse_y)
+  print(mouse_x, mouse_y)
   -- TODO: finish
-  if mouse_x == self.x and mouse.y == self.y then
+  if mouse_x == self.x and mouse_y == self.y then
     return  -- don't change direction
   end
   local angle = getAngle(mouse_x, mouse_y, self.x, self.y)
