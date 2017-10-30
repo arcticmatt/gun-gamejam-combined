@@ -124,7 +124,6 @@ function Player:getInputs()
 end
 
 function Player:updateDirection(mouse_x, mouse_y)
-  print(mouse_x, mouse_y)
   -- TODO: finish
   if mouse_x == self.x and mouse_y == self.y then
     return  -- don't change direction
