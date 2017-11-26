@@ -170,56 +170,6 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
-    },
-    {
-      type = "objectgroup",
-      name = "collision",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      draworder = "topdown",
-      properties = {},
-      objects = {
-        {
-          id = 13,
-          name = "treetrunk",
-          type = "",
-          shape = "rectangle",
-          x = 97.3333,
-          y = 208,
-          width = 127.333,
-          height = 48.6667,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      name = "player",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      draworder = "topdown",
-      properties = {},
-      objects = {
-        {
-          id = 16,
-          name = "player",
-          type = "",
-          shape = "rectangle",
-          x = 448.667,
-          y = 128.667,
-          width = 32.6667,
-          height = 29.3333,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
     }
   }
 }

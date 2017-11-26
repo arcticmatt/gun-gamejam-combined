@@ -14,8 +14,7 @@ function commands:handle_at(ents, ent_id, cmd, params, udp)
 end
 
 function commands:handle_new_ent(ents, params)
-  -- TODO: refactor to use subclasses? should Ent be abstract?
-  -- e.g. for new players, we should make a new Player object, not a new Ent
+  -- TODO: should Ent be abstract?
   local new_ent = ents.factory(params.type, params)
   ents:add(new_ent.id, new_ent)
 end

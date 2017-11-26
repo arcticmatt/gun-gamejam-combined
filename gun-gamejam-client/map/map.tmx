@@ -74,10 +74,4 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="collision">
-  <object id="13" name="treetrunk" x="97.3333" y="208" width="127.333" height="48.6667"/>
- </objectgroup>
- <objectgroup name="player">
-  <object id="16" name="player" x="448.667" y="128.667" width="32.6667" height="29.3333"/>
- </objectgroup>
 </map>

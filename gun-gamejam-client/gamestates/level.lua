@@ -9,6 +9,7 @@ local commands = require('commands.commands')
 local socket = require('socket')
 local sti = require('libs.sti.sti')
 
+-- ===== LOCAL VARIABLES =====
 -- TODO add config changing for this
 -- the address and port of the server
 local address, port = 'localhost', 12345
@@ -17,12 +18,43 @@ local updaterate = 0.1 -- how long to wait, in seconds, before requesting an upd
 
 local t
 
--- ===== Game stuff =====
 local level = {}
 local player = nil
 
+local PLAYER_LAYER = 'players'
+
+-- ===== LOCAL FUNCTIONS =====
+local function send_spawn()
+  udp:send(encoder:encode_spawn())
+end
+
+local function receive_spawn()
+  local data, msg = udp:receive()
+
+  if data then
+    ent_id, cmd, params = decoder:decode_data(data)
+    if cmd == 'spawn' then
+      return commands:handle_spawn(ent_id, params)
+    end
+  end
+end
+
+local function send_quit()
+  udp:send(encoder:encode_quit(player.id))
+end
+
+-- ===== GAMESTATE METHODS =====
 function level:enter()
-  print('Entering level')
+  -- Get map!
+  map = sti('map/map.lua')
+
+  -- Create new dynamic layer for players
+  local layer = map:addCustomLayer(PLAYER_LAYER, 4)
+  -- layer.draw = drawPlayerLayer
+  for k, v in pairs(map.layers) do
+    print(k, v)
+  end
+
   -- Set up sprites
   love.graphics.setDefaultFilter('nearest', 'nearest')
   sprite_loader:loadSprites()
@@ -63,6 +95,9 @@ function level:update(dt)
 
     if player then
       ents:add(player.id, player)
+
+      local layer = map.layers[PLAYER_LAYER]
+      layer.player = player
     end
 
     return
@@ -112,6 +147,8 @@ function level:draw()
   end
 
   ents:draw()
+
+  -- map:draw()
 end
 
 function level:keypressed(key)
@@ -120,26 +157,6 @@ function level:keypressed(key)
     send_quit()
     Gamestate.pop()
   end
-end
-
--- ===== Helper functions =====
-function send_spawn()
-  udp:send(encoder:encode_spawn())
-end
-
-function receive_spawn()
-  local data, msg = udp:receive()
-
-  if data then
-    ent_id, cmd, params = decoder:decode_data(data)
-    if cmd == 'spawn' then
-      return commands:handle_spawn(ent_id, params)
-    end
-  end
-end
-
-function send_quit()
-  udp:send(encoder:encode_quit(player.id))
 end
 
 return level
