@@ -48,13 +48,6 @@ function level:enter()
   -- Get map!
   map = sti('map/map.lua')
 
-  -- Create new dynamic layer for players
-  local layer = map:addCustomLayer(PLAYER_LAYER, 4)
-  -- layer.draw = drawPlayerLayer
-  for k, v in pairs(map.layers) do
-    print(k, v)
-  end
-
   -- Set up sprites
   love.graphics.setDefaultFilter('nearest', 'nearest')
   sprite_loader:loadSprites()
@@ -95,9 +88,6 @@ function level:update(dt)
 
     if player then
       ents:add(player.id, player)
-
-      local layer = map.layers[PLAYER_LAYER]
-      layer.player = player
     end
 
     return
@@ -141,14 +131,15 @@ function level:update(dt)
   -- TODO: update ents
 end
 
+-- NOTE: drawing order matters
 function level:draw()
+  map:draw()
+
   if player then
     player:draw()
   end
 
   ents:draw()
-
-  -- map:draw()
 end
 
 function level:keypressed(key)

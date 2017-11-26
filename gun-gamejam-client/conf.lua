@@ -1,7 +1,7 @@
 local conf = {}
 
-conf.width = 400
-conf.height = 400
+conf.width = 640
+conf.height = 640
 
 function love.conf(t)
   t.title = 'gun-gamejam'
