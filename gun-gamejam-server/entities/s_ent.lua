@@ -29,13 +29,13 @@ function Ent:move(x, y, dt)
   self.y = y
 end
 
-function Ent:send_spawn_info(ip, port)
+function Ent:sendSpawnInfo(ip, port)
   print(string.format('Sending spawn info for id=%d to ip=%s, port=%s', self.id, ip, port))
-  self.udp:sendto(encoder:encode_spawn(self), ip, port)
+  self.udp:sendto(encoder:encodeSpawn(self), ip, port)
 end
 
-function Ent:send_at_info(ip, port)
-  self.udp:sendto(encoder:encode_at(self), ip, port)
+function Ent:sendAtInfo(ip, port)
+  self.udp:sendto(encoder:encodeAt(self), ip, port)
 end
 
 return Ent

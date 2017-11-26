@@ -24,23 +24,23 @@ local player = nil
 local PLAYER_LAYER = 'players'
 
 -- ===== LOCAL FUNCTIONS =====
-local function send_spawn()
-  udp:send(encoder:encode_spawn())
+local function sendSpawn()
+  udp:send(encoder:encodeSpawn())
 end
 
-local function receive_spawn()
+local function receiveSpawn()
   local data, msg = udp:receive()
 
   if data then
-    ent_id, cmd, params = decoder:decode_data(data)
+    ent_id, cmd, params = decoder:decodeData(data)
     if cmd == 'spawn' then
-      return commands:handle_spawn(ent_id, params)
+      return commands:handleSpawn(ent_id, params)
     end
   end
 end
 
-local function send_quit()
-  udp:send(encoder:encode_quit(player.id))
+local function sendQuit()
+  udp:send(encoder:encodeQuit(player.id))
 end
 
 -- ===== GAMESTATE METHODS =====
@@ -76,7 +76,7 @@ function level:enter()
   math.randomseed(os.time())
   print(string.format('Connected to TCP & UDP! Client is located at %s:%d', i, p))
 
-  send_spawn()
+  sendSpawn()
   player = nil
 
   -- t is a variable we use to help us with the update rate in love.update.
@@ -91,7 +91,7 @@ function level:update(dt)
   if not player then
     -- print('Waiting to spawn...')
 
-    player = receive_spawn()
+    player = receiveSpawn()
 
     if player then
       ents:add(player.id, player)
@@ -114,7 +114,7 @@ function level:update(dt)
 
   -- Send player info to server
 	if t > updaterate then
-    udp:send(encoder:encode_move(player))
+    udp:send(encoder:encodeMove(player))
 
 		t = t - updaterate -- set t for the next round
 	end
@@ -123,13 +123,13 @@ function level:update(dt)
     data, msg = udp:receive()
 
     if data then
-      ent_id, cmd, params = decoder:decode_data(data)
+      ent_id, cmd, params = decoder:decodeData(data)
       if cmd == 'at' then
-        commands:handle_at(ents, ent_id, cmd, params, udp)
+        commands:handleAt(ents, ent_id, cmd, params, udp)
       elseif cmd == 'new_ent' then
-        commands:handle_new_ent(ents, params)
+        commands:handleNewEnt(ents, params)
       elseif cmd == 'remove' then
-        commands:handle_remove(ents, ent_id)
+        commands:handleRemove(ents, ent_id)
       else
         print('unrecognised command:', cmd)
       end
@@ -154,7 +154,7 @@ end
 function level:keypressed(key)
   if key == 'escape' or key == 'q' then
     print('Quitting the game\n')
-    send_quit()
+    sendQuit()
     Gamestate.pop()
   end
 end

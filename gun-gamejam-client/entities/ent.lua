@@ -31,7 +31,7 @@ function Ent:update(dt)
   -- Do nothing by default
 end
 
-function Ent:update_state(cmd, params)
+function Ent:updateState(cmd, params)
   -- TODO: again, this should be abstract. for now, just want to test with hacky shit
   if cmd == 'at' then
     self.x, self.y = params.x, params.y

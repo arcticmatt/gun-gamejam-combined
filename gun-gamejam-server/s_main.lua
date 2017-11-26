@@ -35,29 +35,29 @@ while true do
   -- Accept new clients
   client = tcp:accept()
   if client then
-    ents:add_tcp(client)
+    ents:addTcp(client)
   end
 
   -- Check for disconnects
-  ents:check_for_disconnects(udp)
+  ents:checkForDisconnects(udp)
 
   -- Get data and client location
   data, c_ip, c_port = udp:receivefrom()
   is_connected = data and c_ip and c_port
 
   if is_connected then
-    ents:add_client(c_ip, c_port)
+    ents:addClient(c_ip, c_port)
 
-    ent_id, cmd, params = decoder:decode_data(data)
+    ent_id, cmd, params = decoder:decodeData(data)
 
     if cmd == 'spawn' then
-      commands:handle_spawn(ents, udp, c_ip, c_port)
+      commands:handleSpawn(ents, udp, c_ip, c_port)
   	elseif cmd == 'move' then
-      commands:handle_move(ents, ent_id, params, dt)
+      commands:handleMove(ents, ent_id, params, dt)
     elseif cmd == 'new_ent' then
-      commands:handle_new_ent(ents, params, udp, c_ip, c_port)
+      commands:handleNewEnt(ents, params, udp, c_ip, c_port)
     elseif cmd == 'quit' then
-      commands:handle_quit(ents, ent_id, udp, c_ip, c_port)
+      commands:handleQuit(ents, ent_id, udp, c_ip, c_port)
     else
       print('unrecognised command:', cmd)
     end
@@ -66,7 +66,7 @@ while true do
   end
 
   if current_time - previous_broadcast > broadcast_interval then
-    ents:send_at_info()
+    ents:sendAtInfo()
     previous_broadcast = current_time
   end
 

@@ -90,7 +90,7 @@ function Player:resolveState(dt)
 end
 
 -- Our function
-function Player:update_state(cmd, params)
+function Player:updateState(cmd, params)
   if cmd == 'at' then
     self.x, self.y = params.x, params.y
   end

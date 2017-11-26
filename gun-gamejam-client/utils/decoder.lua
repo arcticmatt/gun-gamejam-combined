@@ -12,7 +12,7 @@ local decoder = {}
 
 -- input: data encoded by json library
 -- output: int, string, table
-function decoder:decode_data(data)
+function decoder:decodeData(data)
   t = json.decode(data)
   return t.ent_id, t.cmd, t.params
 end

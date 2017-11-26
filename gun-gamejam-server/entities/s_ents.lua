@@ -12,7 +12,7 @@ function ents:add(ent_id, ent)
   self.entMap[ent_id] = ent
 end
 
-function ents:add_many(ents)
+function ents:addMany(ents)
   for k, e in pairs(ents) do
     self:add(k, e)
   end
@@ -22,11 +22,11 @@ function ents:remove(ent_id)
   self.entMap[ent_id] = nil
 end
 
-function ents:has_ent(ent_id)
+function ents:hasEnt(ent_id)
   return self.entMap[ent_id] ~= nil
 end
 
-function ents:get_ent(ent_id)
+function ents:getEnt(ent_id)
   return self.entMap[ent_id]
 end
 
@@ -45,8 +45,8 @@ function ents:move(ent_id, x, y, dt)
 end
 
 -- ===== Client methods =====
-function ents:add_client(ip, port)
-  local key = make_key(ip, port)
+function ents:addClient(ip, port)
+  local key = makeKey(ip, port)
   local entry = self.clients[key]
   if entry and (not entry.ip or not entry.port) then
     print(string.format('Adding ip and port to existing client=%s', key))
@@ -59,9 +59,9 @@ function ents:add_client(ip, port)
 end
 
 -- Add player to entMap and update corresponding client.
-function ents:add_player(player_id, ent, ip, port)
+function ents:addPlayer(player_id, ent, ip, port)
   self:add(player_id, ent)
-  local key = make_key(ip, port)
+  local key = makeKey(ip, port)
   if self.clients[key] then
     print(string.format('Adding player to existing client=%s', key))
     self.clients[key].player_id = player_id
@@ -70,10 +70,10 @@ function ents:add_player(player_id, ent, ip, port)
   end
 end
 
-function ents:add_tcp(tcp)
+function ents:addTcp(tcp)
   tcp:settimeout(0)
   ci, cp = tcp:getpeername()
-  local key = make_key(ci, cp)
+  local key = makeKey(ci, cp)
   if self.clients[key] then
     print(string.format('Adding tcp to existing client=%s', key))
     self.clients[key].tcp = tcp
@@ -83,46 +83,46 @@ function ents:add_tcp(tcp)
   end
 end
 
-function ents:remove_client(ip, port)
-  self.clients[make_key(ip, port)] = nil
+function ents:removeClient(ip, port)
+  self.clients[makeKey(ip, port)] = nil
 end
 
 -- ===== Networking methods =====
-function ents:send_at_info()
+function ents:sendAtInfo()
   for _, client in pairs(self.clients) do
     for _, e in pairs(self.entMap) do
-      e:send_at_info(client.ip, client.port)
+      e:sendAtInfo(client.ip, client.port)
     end
   end
 end
 
-function ents:send_remove_info(ent_id, udp)
+function ents:sendRemoveInfo(ent_id, udp)
   for _, client in pairs(self.clients) do
-    udp:sendto(encoder:encode_remove(ent_id), client.ip, client.port)
+    udp:sendto(encoder:encodeRemove(ent_id), client.ip, client.port)
   end
 end
 
-function ents:check_for_disconnects(udp)
+function ents:checkForDisconnects(udp)
   for _, client in pairs(self.clients) do
     if client.tcp then
       l, e = client.tcp:receive()
       if e == 'closed' then
-        self:handle_quit(client.player_id, udp, client.ip, client.port)
+        self:handleQuit(client.player_id, udp, client.ip, client.port)
       end
     end
   end
 end
 
 -- ===== Misc =====
-function ents:handle_quit(player_id, udp, ip, port)
+function ents:handleQuit(player_id, udp, ip, port)
   print(string.format('Client with player=%d at %s:%d is quitting', player_id, ip, port))
   self:remove(player_id)
-  self:remove_client(ip, port)
-  self:send_remove_info(player_id, udp)
+  self:removeClient(ip, port)
+  self:sendRemoveInfo(player_id, udp)
 end
 
 -- ===== Helper functions =====
-function make_key(ip, port)
+function makeKey(ip, port)
   return ip .. port
 end
 

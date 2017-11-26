@@ -16,23 +16,23 @@ local encoder = {}
 -- ===== Module functions =====
 -- input: an ent
 -- output: ent's spawn info
-function encoder:encode_spawn(ent)
+function encoder:encodeSpawn(ent)
   return json.encode({ent_id = ent.id, cmd = 'spawn', params = {x = ent.x, y = ent.y, w = ent.w, h = ent.h}})
 end
 
 -- input: an ent
 -- output: ent's move info
-function encoder:encode_at(ent)
-  return encode_position(ent, 'at')
+function encoder:encodeAt(ent)
+  return encodePosition(ent, 'at')
 end
 
 -- input: an ent
 -- output: serialized ent
-function encoder:encode_ent(ent)
+function encoder:encodeEnt(ent)
   -- pass work off to encoders for specific subclasses. if the type is just ent,
   -- we'll do the encoding here.
   if ent.type == utils.types.player then
-    return self:encode_player(ent)
+    return self:encodePlayer(ent)
   end
 
   return json.encode({
@@ -49,7 +49,7 @@ function encoder:encode_ent(ent)
   })
 end
 
-function encoder:encode_player(ent)
+function encoder:encodePlayer(ent)
   return json.encode({
     ent_id = ent.id,
     cmd = 'new_ent',
@@ -60,19 +60,19 @@ function encoder:encode_player(ent)
       h = ent.h,
       id = ent.id,
       type = ent.type,
-      
+
     },
   })
 end
 
 -- input: an ent id
 -- output: removal info
-function encoder:encode_remove(ent_id)
+function encoder:encodeRemove(ent_id)
   return json.encode({ent_id = ent_id, cmd = 'remove', params = {}})
 end
 
 -- ===== Helper functions =====
-function encode_position(ent, cmd)
+function encodePosition(ent, cmd)
   return json.encode({ent_id = ent.id, cmd = cmd, params = {x = ent.x, y = ent.y}})
 end
 

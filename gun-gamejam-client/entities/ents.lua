@@ -12,7 +12,7 @@ function ents:add(ent_id, entity)
   self.entMap[ent_id] = entity
 end
 
-function ents:add_many(ents)
+function ents:addMany(ents)
   for k, e in pairs(ents) do
     self:add(k, e)
   end
@@ -23,11 +23,11 @@ function ents:remove(ent_id)
   self.entMap[ent_id] = nil
 end
 
-function ents:has_ent(ent_id)
+function ents:hasEnt(ent_id)
   return self.entMap[ent_id] ~= nil
 end
 
-function ents:get_ent(ent_id)
+function ents:getEnt(ent_id)
   return self.entMap[ent_id]
 end
 
@@ -41,9 +41,9 @@ function ents:draw()
   end
 end
 
-function ents:update_state(ent_id, cmd, params)
+function ents:updateState(ent_id, cmd, params)
   assert(self.entMap[ent_id])
-  self.entMap[ent_id]:update_state(cmd, params)
+  self.entMap[ent_id]:updateState(cmd, params)
 end
 
 function ents.factory(type, params)

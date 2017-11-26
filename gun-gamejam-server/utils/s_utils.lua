@@ -8,7 +8,7 @@ function utils:get_unused_id(ents)
   repeat
     math.randomseed(os.time())
     id = math.random(MAX_IDS)
-  until id ~= 0 and not ents:get_ent(id)
+  until id ~= 0 and not ents:getEnt(id)
   return id
 end
 

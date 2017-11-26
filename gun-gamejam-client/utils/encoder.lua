@@ -14,7 +14,7 @@ local encoder = {}
 -- ===== Module functions =====
 -- input: an ent
 -- output: ent's move info
-function encoder:encode_move(player)
+function encoder:encodeMove(player)
   return json.encode({
     ent_id = player.id,
     cmd = 'move',
@@ -24,7 +24,7 @@ end
 
 -- input: an ent
 -- output: request for new ent
-function encoder:encode_new_ent(ent_id)
+function encoder:encodeNewEnt(ent_id)
   return json.encode({
     ent_id = 0,
     cmd = 'new_ent',
@@ -34,14 +34,14 @@ end
 
 -- input: ent_id
 -- output: quit message
-function encoder:encode_quit(ent_id)
+function encoder:encodeQuit(ent_id)
   return json.encode({ent_id = ent_id, cmd = 'quit', params = {}})
 end
 
 -- input: an ent
 -- output: ent's spawn info
 -- Note: server decides ent id and spawn position
-function encoder:encode_spawn(player)
+function encoder:encodeSpawn(player)
   return json.encode({ent_id = 0, cmd = 'spawn', params = {}})
 end
 
