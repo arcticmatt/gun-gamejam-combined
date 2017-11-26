@@ -46,7 +46,7 @@ end
 -- ===== GAMESTATE METHODS =====
 function level:enter()
   -- Get map!
-  map = sti('map/map.lua')
+  map = sti('map/dungeon_small.lua')
 
   -- Set up sprites
   love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -133,7 +133,7 @@ end
 
 -- NOTE: drawing order matters
 function level:draw()
-  map:draw()
+  map:draw(0, 0, 2, 2)
 
   if player then
     player:draw()
