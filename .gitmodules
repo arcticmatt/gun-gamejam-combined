@@ -19,3 +19,6 @@
 [submodule "gun-gamejam-server/libs/bump"]
 	path = gun-gamejam-server/libs/bump
 	url = https://github.com/kikito/bump.lua.git
+[submodule "gun-gamejam-client/libs/sti"]
+	path = gun-gamejam-client/libs/sti
+	url = https://github.com/karai17/Simple-Tiled-Implementation.git
