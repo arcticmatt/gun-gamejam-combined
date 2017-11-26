@@ -7,6 +7,7 @@ local encoder = require('utils.encoder')
 local sprite_loader = require('utils.sprite_loader')
 local commands = require('commands.commands')
 local socket = require('socket')
+local sti = require('libs.sti.sti')
 
 -- TODO add config changing for this
 -- the address and port of the server
