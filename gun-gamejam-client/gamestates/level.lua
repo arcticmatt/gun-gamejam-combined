@@ -24,6 +24,43 @@ local player = nil
 local map
 local PLAYER_LAYER = 'players'
 
+-- ===== INPUT STUFF =====
+local bindings = {
+  moveUp = function() player.kb.y = -1 end,
+  moveDown = function() player.kb.y = 1 end,
+  moveLeft = function() player.kb.x = -1 end,
+  moveRight = function() player.kb.x = 1 end,
+  stopVertical = function() player.kb.y = 0 end,
+  stopHorizontal = function() player.kb.x = 0 end,
+}
+
+local keysDown = {
+  up = "moveUp",
+  down = "moveDown",
+  left = "moveLeft",
+  right = "moveRight",
+}
+
+local keysReleased = {
+  up = "stopVertical",
+  down = "stopVertical",
+  left = "stopHorizontal",
+  right = "stopHorizontal",
+}
+
+function inputHandler(input)
+  local action = bindings[input]
+  if action then return action() end
+end
+function love.keypressed(k)
+  local binding = keysDown[k]
+  return inputHandler(binding)
+end
+function love.keyreleased(k)
+  local binding = keysReleased[k]
+  return inputHandler(binding)
+end
+
 -- ===== LOCAL FUNCTIONS =====
 local function sendSpawn()
   udp:send(encoder:encodeSpawn())

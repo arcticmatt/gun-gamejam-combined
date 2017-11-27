@@ -9,6 +9,7 @@ local Player = Class{
   __includes = Ent -- Player class inherits our Ent class
 }
 
+-- ===== LOCAL VARS =====
 local dw, dh
 local facing_left = false
 local spr, idle_anim, run_anim
@@ -35,6 +36,67 @@ local quadrant = {
 local state
 local states = {idle=0, run=1}
 
+-- ===== LOCAL FUNCTIONS =====
+local function getDirection(angle)
+  -- Hardcoded is kinda ugly, but easy to read
+  if angle >= 337.5 or angle < 22.5 then
+    return direction.right
+  elseif angle >= 22.5 and angle < 67.5 then
+    return direction.up_right
+  elseif angle >= 67.5 and angle < 112.5 then
+    return direction.up
+  elseif angle >= 112.5 and angle < 157.5 then
+    return direction.up_left
+  elseif angle >= 157.5 and angle < 202.5 then
+    return direction.left
+  elseif angle >= 202.5 and angle < 247.5 then
+    return direction.down_left
+  elseif angle >= 247.5 and angle < 292.5 then
+    return direction.down
+  elseif angle >= 292.5 and angle < 337.5 then
+    return direction.down_right
+  end
+
+  assert(false)
+end
+
+local function getQuadrant(mouse_x, mouse_y, player_x, player_y)
+  if mouse_x == player_x and mouse_y == player_y then
+    assert(false)
+  end
+
+  local dx = mouse_x > player_x
+  local dy = mouse_y < player_y  -- coordinate system is top right
+
+  if dx and dy then return quadrant.first
+  elseif dy then return quadrant.second
+  elseif dx then return quadrant.fourth
+  else return quadrant.third
+  end
+end
+
+local function getAngle(mouse_x, mouse_y, player_x, player_y)
+  if mouse_x == player_x and mouse_y == player_y then
+    assert(false)
+  end
+
+  local dx, dy = math.abs(mouse_x - player_x), math.abs(mouse_y - player_y)
+  local y_over_x = math.deg(math.atan(dy / dx))
+  local x_over_y = math.deg(math.atan(dx / dy))
+  quad = getQuadrant(mouse_x, mouse_y, player_x, player_y)
+
+  if quad == quadrant.first then
+    return y_over_x
+  elseif quad == quadrant.second then
+    return 90 + x_over_y
+  elseif quad == quadrant.third then
+    return 180 + y_over_x
+  else
+    return 270 + x_over_y
+  end
+end
+
+-- ===== PLAYER METHODS =====
 function Player:init(p)
   local g
 
@@ -55,7 +117,6 @@ end
 
 -- Love function
 function Player:update(dt, mouse_x, mouse_y)
-  self:getInputs()
   self:updateDirection(mouse_x, mouse_y)
   self:resolveState(dt)
 end
@@ -83,7 +144,6 @@ function Player:resolveState(dt)
       state = states.run
       run_anim:gotoFrame(1)
     end
-
 
     idle_anim:update(dt)
   end
@@ -116,18 +176,6 @@ function Player:draw()
   end
 end
 
--- Populates the input array with the keys that the player is pressing down
-function Player:getInputs()
-  -- Reset velocity input vector
-  self.kb = vector(0, 0)
-  if love.keyboard.isDown(input.up) then self.kb.y = self.kb.y - 1; end
-  if love.keyboard.isDown(input.down) then self.kb.y = self.kb.y + 1; end
-  if love.keyboard.isDown(input.left) then self.kb.x = self.kb.x - 1; end
-  if love.keyboard.isDown(input.right) then self.kb.x = self.kb.x + 1; end
-
-  return self.kb
-end
-
 function Player:updateDirection(mouse_x, mouse_y)
   -- TODO: finish
   if mouse_x == self.x and mouse_y == self.y then
@@ -135,66 +183,6 @@ function Player:updateDirection(mouse_x, mouse_y)
   end
   local angle = getAngle(mouse_x, mouse_y, self.x, self.y)
   self.direction = getDirection(angle)
-end
-
--- Helper funcs
-function getDirection(angle)
-  -- Hardcoded is kinda ugly, but easy to read
-  if angle >= 337.5 or angle < 22.5 then
-    return direction.right
-  elseif angle >= 22.5 and angle < 67.5 then
-    return direction.up_right
-  elseif angle >= 67.5 and angle < 112.5 then
-    return direction.up
-  elseif angle >= 112.5 and angle < 157.5 then
-    return direction.up_left
-  elseif angle >= 157.5 and angle < 202.5 then
-    return direction.left
-  elseif angle >= 202.5 and angle < 247.5 then
-    return direction.down_left
-  elseif angle >= 247.5 and angle < 292.5 then
-    return direction.down
-  elseif angle >= 292.5 and angle < 337.5 then
-    return direction.down_right
-  end
-
-  assert(false)
-end
-
-function getAngle(mouse_x, mouse_y, player_x, player_y)
-  if mouse_x == player_x and mouse_y == player_y then
-    assert(false)
-  end
-
-  local dx, dy = math.abs(mouse_x - player_x), math.abs(mouse_y - player_y)
-  local y_over_x = math.deg(math.atan(dy / dx))
-  local x_over_y = math.deg(math.atan(dx / dy))
-  quad = getQuadrant(mouse_x, mouse_y, player_x, player_y)
-
-  if quad == quadrant.first then
-    return y_over_x
-  elseif quad == quadrant.second then
-    return 90 + x_over_y
-  elseif quad == quadrant.third then
-    return 180 + y_over_x
-  else
-    return 270 + x_over_y
-  end
-end
-
-function getQuadrant(mouse_x, mouse_y, player_x, player_y)
-  if mouse_x == player_x and mouse_y == player_y then
-    assert(false)
-  end
-
-  local dx = mouse_x > player_x
-  local dy = mouse_y < player_y  -- coordinate system is top right
-
-  if dx and dy then return quadrant.first
-  elseif dy then return quadrant.second
-  elseif dx then return quadrant.fourth
-  else return quadrant.third
-  end
 end
 
 return Player
