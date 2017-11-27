@@ -47,6 +47,7 @@ end
 function level:enter()
   -- Get map!
   map = sti('map/dungeon_small.lua')
+  -- map.layers['Wall-Objects'].visible = false
 
   -- Set up sprites
   love.graphics.setDefaultFilter('nearest', 'nearest')

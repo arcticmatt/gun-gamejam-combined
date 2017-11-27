@@ -8,7 +8,7 @@ return {
   height = 20,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 1,
+  nextobjectid = 15,
   properties = {},
   tilesets = {
     {
@@ -135,6 +135,70 @@ return {
         960, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 960,
         960, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 960,
         980, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 984, 982
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "Wall-Objects",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 10,
+          name = "Left-Wall",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 16,
+          width = 16,
+          height = 288,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 12,
+          name = "Top-Wall",
+          type = "",
+          shape = "rectangle",
+          x = 16,
+          y = 0,
+          width = 288,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 13,
+          name = "Right-Wall",
+          type = "",
+          shape = "rectangle",
+          x = 304,
+          y = 16,
+          width = 16,
+          height = 288,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 14,
+          name = "Bottom-Wall",
+          type = "",
+          shape = "rectangle",
+          x = 16,
+          y = 304,
+          width = 288,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
       }
     }
   }
