@@ -134,14 +134,17 @@ function level:update(dt)
 end
 
 -- NOTE: drawing order matters
+-- the map should be first, as everything else is draw on top
+-- we always want the client's player to be draw OVER all the other players,
+-- which explains the remaining order
 function level:draw()
   map:draw()
+
+  ents:draw()
 
   if player then
     player:draw()
   end
-
-  ents:draw()
 end
 
 function level:keypressed(key)

@@ -21,7 +21,14 @@ function Player:move(x, y, dt, world)
 
   -- TODO: no boundaries
   local x, y = self.x + self.kb.x, self.y + self.kb.y
-  self.x, self.y = world:move(self, x, y)
+  self.x, self.y = world:move(self, x, y,
+    function(item, other)
+        if other.type == utils.types.player then
+          return false
+        end
+        return 'touch'
+    end
+  )
 end
 
 function Player:draw()
