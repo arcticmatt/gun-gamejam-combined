@@ -26,7 +26,7 @@ function Player:move(x, y, dt, world)
         if other.type == utils.types.player then
           return false
         end
-        return 'touch'
+        return 'slide'
     end
   )
 end
