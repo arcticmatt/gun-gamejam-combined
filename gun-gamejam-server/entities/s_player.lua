@@ -14,13 +14,14 @@ function Player:init(p)
   self.baseVelocity = 1000
 end
 
-function Player:move(x, y, dt)
+function Player:move(x, y, dt, world)
   self.kb = vector(x, y)
   self.kb = self.kb * self.baseVelocity * dt
   self.kb:trimInplace(self.baseVelocity * dt)
 
   -- TODO: no boundaries
-  self.x, self.y = self.x + self.kb.x, self.y + self.kb.y
+  local x, y = self.x + self.kb.x, self.y + self.kb.y
+  self.x, self.y = world:move(self, x, y)
 end
 
 function Player:draw()

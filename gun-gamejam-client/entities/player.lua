@@ -103,6 +103,11 @@ function Player:flip()
   idle_anim:flipH()
 end
 
+-- TODO: if we change sprites we'll probably need to change this
+function Player:getPosition()
+  return self.x - self.w / 4, self.y - self.h / 4
+end
+
 function Player:draw()
   if state == states.run then
     run_anim:draw(spr, self:getPosition())

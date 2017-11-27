@@ -24,7 +24,7 @@ function Ent:draw()
   -- Do nothing by default
 end
 
-function Ent:move(x, y, dt)
+function Ent:move(x, y, dt, world)
   self.x = x
   self.y = y
 end

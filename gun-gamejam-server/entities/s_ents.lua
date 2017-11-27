@@ -19,7 +19,9 @@ function ents:setWorld(world)
 end
 
 function ents:add(ent_id, ent)
+  assert(self.world ~= nil)
   self.entMap[ent_id] = ent
+  self.world:add(ent, ent:getRect())
 end
 
 function ents:addMany(ents)
@@ -29,6 +31,8 @@ function ents:addMany(ents)
 end
 
 function ents:remove(ent_id)
+  assert(self.world ~= nil)
+  self.world:remove(self.entMap[ent_id])
   self.entMap[ent_id] = nil
 end
 
@@ -51,7 +55,7 @@ function ents:draw()
 end
 
 function ents:move(ent_id, x, y, dt)
-  self.entMap[ent_id]:move(x, y, dt)
+  self.entMap[ent_id]:move(x, y, dt, self.world)
 end
 
 -- ===== Client methods =====
