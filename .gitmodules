@@ -22,3 +22,6 @@
 [submodule "gun-gamejam-client/libs/sti"]
 	path = gun-gamejam-client/libs/sti
 	url = https://github.com/karai17/Simple-Tiled-Implementation.git
+[submodule "gun-gamejam-server/libs/sti"]
+	path = gun-gamejam-server/libs/sti
+	url = https://github.com/karai17/Simple-Tiled-Implementation.git
