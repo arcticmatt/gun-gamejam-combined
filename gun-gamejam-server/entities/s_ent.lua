@@ -6,13 +6,13 @@ local Ent = Class{}
 
 -- Superclass of all ents
 -- TODO: refactor argument passing
-function Ent:init(x, y, w, h, udp, id)
-  self.x = x
-  self.y = y
-  self.w = w
-  self.h = h
-  self.udp = udp
-  self.id = id
+function Ent:init(p)
+  self.x = p.x
+  self.y = p.y
+  self.w = p.w
+  self.h = p.h
+  self.udp = p.udp
+  self.id = p.id
   self.type = utils.types.ent
 end
 

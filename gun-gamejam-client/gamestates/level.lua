@@ -21,6 +21,7 @@ local t
 local level = {}
 local player = nil
 
+local map
 local PLAYER_LAYER = 'players'
 
 -- ===== LOCAL FUNCTIONS =====

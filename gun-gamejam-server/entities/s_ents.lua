@@ -5,6 +5,7 @@ local ents = {
   -- Clients stores all information relevant to specific clients. This includes
   -- the ip, port, tcp connection, and ent_id of the client's player.
   clients = {}, -- 'ip:port' -> { ip = ip, port = port, tcp = tcp, player_id = ent_id }
+  world = nil,
 }
 
 -- ===== Local functions =====
@@ -13,6 +14,10 @@ local function makeKey(ip, port)
 end
 
 -- ===== Ent methods =====
+function ents:setWorld(world)
+  self.world = world
+end
+
 function ents:add(ent_id, ent)
   self.entMap[ent_id] = ent
 end

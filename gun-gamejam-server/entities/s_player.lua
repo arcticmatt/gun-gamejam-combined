@@ -7,10 +7,8 @@ local Player = Class{
   __includes = Ent -- Player class inherits our Ent class
 }
 
-function Player:init(x, y, w, h, udp, ip, port, id)
-  Ent.init(self, x, y, w, h, udp, id)
-  self.ip = ip
-  self.port = port
+function Player:init(p)
+  Ent.init(self, p)
   self.type = utils.types.player -- OVERRIDE
   self.kb = vector(0, 0)
   self.baseVelocity = 1000

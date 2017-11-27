@@ -1,7 +1,9 @@
+local bump = require('libs.bump.bump')
 local socket = require('socket')
 local ents = require('entities.s_ents')
 local decoder = require('utils.s_decoder')
 local commands = require('commands.s_commands')
+local sti = require('libs.sti.sti.init')
 
 -- ===== Timing/game-loop stuff =====
 local data, c_ip, c_port, cmd, params, dt, current_time
@@ -25,9 +27,32 @@ udp:settimeout(0)
 print(string.format('Binding udp to %s:%d...', address, port))
 udp:setsockname(address, port)
 
+-- ===== World stuff =====
+local world
+
+-- ===== Map stuff =====
+local map
+
+function love.load()
+  -- Get map!
+  map = sti('map/dungeon_small.lua')
+
+  -- We need collisions
+  world = bump.newWorld(16)
+
+  for k, v in pairs(map.layers['Wall-Objects'].objects) do
+    world:add(v, v.x, v.y, v.width, v.height)
+    print(string.format('Adding object #%d with x=%d, y=%d, w=%d, h=%d', k, v.x, v.y, v.width, v.height))
+  end
+
+  ents:setWorld(world)
+end
+
 -- ===== Main loop =====
 print 'Beginning server loop.'
-while true do
+function love.update(dt)
+-- while true do
+
   -- Do time calculations at beginning
   current_time = socket.gettime()
   dt = current_time - previous_time
@@ -74,4 +99,4 @@ while true do
   socket.sleep(0.01)
 end
 
-print 'Finished server loop.'
+-- print 'Finished server loop.'
