@@ -7,6 +7,11 @@ local ents = {
   clients = {}, -- 'ip:port' -> { ip = ip, port = port, tcp = tcp, player_id = ent_id }
 }
 
+-- ===== Local functions =====
+local function makeKey(ip, port)
+  return ip .. port
+end
+
 -- ===== Ent methods =====
 function ents:add(ent_id, ent)
   self.entMap[ent_id] = ent
@@ -119,11 +124,6 @@ function ents:handleQuit(player_id, udp, ip, port)
   self:remove(player_id)
   self:removeClient(ip, port)
   self:sendRemoveInfo(player_id, udp)
-end
-
--- ===== Helper functions =====
-function makeKey(ip, port)
-  return ip .. port
 end
 
 return ents

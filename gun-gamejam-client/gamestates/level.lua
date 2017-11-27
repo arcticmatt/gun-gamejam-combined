@@ -134,7 +134,7 @@ end
 
 -- NOTE: drawing order matters
 function level:draw()
-  map:draw(0, 0, 2, 2)
+  map:draw()
 
   if player then
     player:draw()
