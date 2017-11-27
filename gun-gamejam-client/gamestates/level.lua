@@ -34,7 +34,7 @@ local function receiveSpawn()
   if data then
     ent_id, cmd, params = decoder:decodeData(data)
     if cmd == 'spawn' then
-      return commands:handleSpawn(ent_id, params)
+      return commands:handleSpawn(ent_id, params, world)
     end
   end
 end
@@ -48,6 +48,17 @@ function level:enter()
   -- Get map!
   map = sti('map/dungeon_small.lua')
   -- map.layers['Wall-Objects'].visible = false
+  -- for k, v in pairs(map.layers['Wall-Objects'].objects[1]) do
+  --   print(k, v)
+  -- end
+
+  -- TODO: move this into server side code
+  -- Make world for collisions
+  world = bump.newWorld(16)
+  for k, v in pairs(map.layers['Wall-Objects'].objects) do
+    world:add(v, v.x, v.y, v.width, v.height)
+    print(string.format('Adding object #%d with x=%d, y=%d, w=%d, h=%d', k, v.x, v.y, v.width, v.height))
+  end
 
   -- Set up sprites
   love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -134,7 +145,8 @@ end
 
 -- NOTE: drawing order matters
 function level:draw()
-  map:draw(0, 0, 2, 2)
+  -- map:draw(0, 0, 2, 2)
+  map:draw()
 
   if player then
     player:draw()

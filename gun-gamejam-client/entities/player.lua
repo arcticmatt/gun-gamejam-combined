@@ -92,7 +92,21 @@ end
 -- Our function
 function Player:updateState(cmd, params)
   if cmd == 'at' then
-    self.x, self.y = params.x, params.y
+    -- self.x, self.y = params.x, params.y
+    local x, y = params.x, params.y
+    local actual_x, actual_y, cols, len = self.world:move(self, x, y)
+    self.x, self.y = actual_x, actual_y
+
+    for i=1,len do -- If more than one simultaneous collision, they are sorted out by proximity
+      local col = cols[i]
+      print(("Collision with %s."):format(col.other.name))
+    end
+
+    print('self', self.x, self.y)
+    print('actual', actual_x, actual_y)
+    print('world', self.world:getRect(self))
+    -- print(self.world:getRect(self))
+    self.world:update(self, self:getRect())
   end
 end
 
@@ -103,13 +117,13 @@ function Player:flip()
   idle_anim:flipH()
 end
 
-function Player:draw()
-  if state == states.run then
-    run_anim:draw(spr, self:getPosition())
-  elseif state == states.idle then
-    idle_anim:draw(spr, self:getPosition())
-  end
-end
+-- function Player:draw()
+--   if state == states.run then
+--     run_anim:draw(spr, self:getPosition())
+--   elseif state == states.idle then
+--     idle_anim:draw(spr, self:getPosition())
+--   end
+-- end
 
 -- Populates the input array with the keys that the player is pressing down
 function Player:getInputs()

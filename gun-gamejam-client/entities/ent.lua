@@ -10,6 +10,7 @@ function Ent:init(p)
   self.w = p.w
   self.h = p.h
   self.id = p.id
+  self.world = p.world
   self.type = utils.types.ent
 end
 

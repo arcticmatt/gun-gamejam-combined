@@ -23,11 +23,13 @@ function commands:handleRemove(ents, ent_id)
   ents:remove(ent_id)
 end
 
-function commands:handleSpawn(ent_id, params)
+function commands:handleSpawn(ent_id, params, world)
 	local x, y, w, h = params.x, params.y, params.w, params.h
   print(string.format('Spawning player with id=%d at x=%d, y=%d', ent_id, x, y))
   assert(x and y and w and h)
-  return Player{x=x, y=y, w=w, h=h, id=ent_id}
+  player = Player{x=x, y=y, w=w, h=h, id=ent_id, world=world}
+  world:add(player, player:getRect())
+  return player
 end
 
 return commands

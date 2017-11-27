@@ -13,7 +13,7 @@ function Player:init(x, y, w, h, udp, ip, port, id)
   self.port = port
   self.type = utils.types.player -- OVERRIDE
   self.kb = vector(0, 0)
-  self.baseVelocity = 1000
+  self.baseVelocity = 2000
 end
 
 function Player:move(x, y, dt)

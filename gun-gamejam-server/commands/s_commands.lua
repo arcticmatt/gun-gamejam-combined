@@ -6,7 +6,7 @@ local commands = {}
 
 function commands:handleSpawn(ents, udp, ip, port, id)
   local id = utils:get_unused_id(ents)
-  local new_player = Player(200, 200, 64, 64, udp, ip, port, id)
+  local new_player = Player(50, 50, 64, 64, udp, ip, port, id)
   ents:addPlayer(id, new_player, ip, port)
   new_player:sendSpawnInfo(ip, port)
 end
