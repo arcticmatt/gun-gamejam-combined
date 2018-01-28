@@ -55,14 +55,14 @@ end
 function love.keypressed(k)
   if udp == nil then return end
   local binding = keysDown[k]
-  udp:send(encoder:encodeBinding(player, binding))
-  -- return inputHandler(binding)
+  -- udp:send(encoder:encodeBinding(player, binding))
+  return inputHandler(binding)
 end
 function love.keyreleased(k)
   if udp == nil then return end
   local binding = keysReleased[k]
-  udp:send(encoder:encodeBinding(player, binding))
-  -- return inputHandler(binding)
+  -- udp:send(encoder:encodeBinding(player, binding))
+  return inputHandler(binding)
 end
 
 -- ===== LOCAL FUNCTIONS =====
@@ -72,15 +72,7 @@ local function receiveFromServer()
 
     if data then
       ent_id, cmd, params = decoder:decodeData(data)
-      if cmd == 'at' then
-        commands:handleAt(ents, ent_id, cmd, params, udp)
-      elseif cmd == 'new_ent' then
-        commands:handleNewEnt(ents, params)
-      elseif cmd == 'remove' then
-        commands:handleRemove(ents, ent_id)
-      else
-        print('unrecognised command:', cmd)
-      end
+      commands:handle{ents=ents, ent_id=ent_id, cmd=cmd, params=params, udp=udp}
     elseif msg ~= 'timeout' then
 			error('Network error: '..tostring(msg))
     end
@@ -105,7 +97,7 @@ local function receiveSpawn()
   if data then
     ent_id, cmd, params = decoder:decodeData(data)
     if cmd == 'spawn' then
-      return commands:handleSpawn(ent_id, params)
+      return commands:handle{ent_id=ent_id, cmd=cmd, params=params}
     end
   end
 end
