@@ -53,12 +53,16 @@ function inputHandler(input)
   if action then return action() end
 end
 function love.keypressed(k)
+  if udp == nil then return end
   local binding = keysDown[k]
-  return inputHandler(binding)
+  udp:send(encoder:encodeBinding(player, binding))
+  -- return inputHandler(binding)
 end
 function love.keyreleased(k)
+  if udp == nil then return end
   local binding = keysReleased[k]
-  return inputHandler(binding)
+  udp:send(encoder:encodeBinding(player, binding))
+  -- return inputHandler(binding)
 end
 
 -- ===== LOCAL FUNCTIONS =====
