@@ -62,8 +62,37 @@ function love.keyreleased(k)
 end
 
 -- ===== LOCAL FUNCTIONS =====
-local function sendSpawn()
-  udp:send(encoder:encodeSpawn())
+local function receiveFromServer()
+  repeat
+    data, msg = udp:receive()
+
+    if data then
+      ent_id, cmd, params = decoder:decodeData(data)
+      if cmd == 'at' then
+        commands:handleAt(ents, ent_id, cmd, params, udp)
+      elseif cmd == 'new_ent' then
+        commands:handleNewEnt(ents, params)
+      elseif cmd == 'remove' then
+        commands:handleRemove(ents, ent_id)
+      else
+        print('unrecognised command:', cmd)
+      end
+    elseif msg ~= 'timeout' then
+			error('Network error: '..tostring(msg))
+    end
+	until not data
+end
+
+local function sendToServer(dt)
+  -- Increase t by the dt
+	t = t + dt
+
+  -- Send player info to server
+	if t > updaterate then
+    udp:send(encoder:encodeMove(player))
+
+		t = t - updaterate -- set t for the next round
+	end
 end
 
 local function receiveSpawn()
@@ -75,6 +104,10 @@ local function receiveSpawn()
       return commands:handleSpawn(ent_id, params)
     end
   end
+end
+
+local function sendSpawn()
+  udp:send(encoder:encodeSpawn())
 end
 
 local function sendQuit()
@@ -138,36 +171,8 @@ function level:update(dt)
   local mouse_x, mouse_y = love.mouse.getPosition()
   player:update(dt, mouse_x, mouse_y)
 
-  -- Increase t by the dt
-	t = t + dt
-
-  -- Send player info to server
-	if t > updaterate then
-    udp:send(encoder:encodeMove(player))
-
-		t = t - updaterate -- set t for the next round
-	end
-
-  repeat
-    data, msg = udp:receive()
-
-    if data then
-      ent_id, cmd, params = decoder:decodeData(data)
-      if cmd == 'at' then
-        commands:handleAt(ents, ent_id, cmd, params, udp)
-      elseif cmd == 'new_ent' then
-        commands:handleNewEnt(ents, params)
-      elseif cmd == 'remove' then
-        commands:handleRemove(ents, ent_id)
-      else
-        print('unrecognised command:', cmd)
-      end
-    elseif msg ~= 'timeout' then
-			error('Network error: '..tostring(msg))
-    end
-	until not data
-
-  -- TODO: update ents
+  sendToServer(dt)
+  receiveFromServer()
 end
 
 -- NOTE: drawing order matters
