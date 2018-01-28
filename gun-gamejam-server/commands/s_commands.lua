@@ -1,14 +1,24 @@
 local Player = require('entities.s_player')
 local encoder = require('utils.s_encoder')
 local utils = require('utils.s_utils')
+local input = require('commands.s_input')
 
 local commands = {}
 
 -- ===== LOCAL FUNCTIONS =====
+local function handleBinding(p)
+	ent = p.ents:getEnt(p.ent_id)
+	if ent == nil then
+		print(string.format('Trying to move ent %d which does not exist yet', p.ent_id))
+		return
+	end
+	input:handle(p.params.binding, ent)
+end
+
 local function handleMove(p)
 	local x, y = p.params.x, p.params.y
 	assert(x and y)
-  p.ents:move(p.ent_id, x, y, p.dt)
+  p.ents:move(p.ent_id, p.dt)
 end
 
 local function handleNewEnt(p)
@@ -33,6 +43,7 @@ local function handleSpawn(p)
 end
 
 local command_bindings = {
+  binding = handleBinding,
   move = handleMove,
   new_ent = handleNewEnt,
   quit = handleQuit,

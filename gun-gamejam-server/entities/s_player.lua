@@ -14,8 +14,7 @@ function Player:init(p)
   self.baseVelocity = 1000
 end
 
-function Player:move(x, y, dt, world)
-  self.kb = vector(x, y)
+function Player:move(dt, world)
   self.kb = self.kb * self.baseVelocity * dt
   self.kb:trimInplace(self.baseVelocity * dt)
 

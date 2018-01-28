@@ -74,7 +74,6 @@ function love.update(dt)
     ents:addClient(c_ip, c_port)
 
     ent_id, cmd, params = decoder:decodeData(data)
-    print('cmd', cmd)
     commands:handle{
       ent_id=ent_id,
       cmd=cmd,

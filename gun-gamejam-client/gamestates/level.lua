@@ -25,15 +25,6 @@ local map
 local PLAYER_LAYER = 'players'
 
 -- ===== INPUT STUFF =====
-local bindings = {
-  moveUp = function() player.kb.y = -1 end,
-  moveDown = function() player.kb.y = 1 end,
-  moveLeft = function() player.kb.x = -1 end,
-  moveRight = function() player.kb.x = 1 end,
-  stopVertical = function() player.kb.y = 0 end,
-  stopHorizontal = function() player.kb.x = 0 end,
-}
-
 local keysDown = {
   up = "moveUp",
   down = "moveDown",
@@ -48,21 +39,15 @@ local keysReleased = {
   right = "stopHorizontal",
 }
 
-function inputHandler(input)
-  local action = bindings[input]
-  if action then return action() end
-end
 function love.keypressed(k)
   if udp == nil then return end
   local binding = keysDown[k]
-  -- udp:send(encoder:encodeBinding(player, binding))
-  return inputHandler(binding)
+  udp:send(encoder:encodeBinding(player, binding))
 end
 function love.keyreleased(k)
   if udp == nil then return end
   local binding = keysReleased[k]
-  -- udp:send(encoder:encodeBinding(player, binding))
-  return inputHandler(binding)
+  udp:send(encoder:encodeBinding(player, binding))
 end
 
 -- ===== LOCAL FUNCTIONS =====

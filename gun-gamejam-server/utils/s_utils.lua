@@ -12,6 +12,12 @@ function utils:get_unused_id(ents)
   return id
 end
 
+function utils:printTable(t)
+  for k, v in pairs(t) do
+    print(k, v)
+  end
+end
+
 utils.types = { ent="ENT", player="PLAYER" } -- sync with client
 
 return utils

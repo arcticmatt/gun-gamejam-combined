@@ -43,7 +43,7 @@ local command_bindings = {
 -- The only function this module exposes
 function commands:handle(p)
   if command_bindings[p.cmd] == nil then
-    print('Unsupported command!')
+    print('Unsupported command!', p.cmd)
     assert(false)
   end
   return command_bindings[p.cmd](p)

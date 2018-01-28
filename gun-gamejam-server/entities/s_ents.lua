@@ -54,8 +54,8 @@ function ents:draw()
   end
 end
 
-function ents:move(ent_id, x, y, dt)
-  self.entMap[ent_id]:move(x, y, dt, self.world)
+function ents:move(ent_id, dt)
+  self.entMap[ent_id]:move(dt, self.world)
 end
 
 -- ===== Client methods =====
