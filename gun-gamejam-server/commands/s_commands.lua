@@ -36,7 +36,7 @@ local function handleQuit(p)
 end
 
 local function handleSpawn(p)
-  local id = utils:get_unused_id(p.ents)
+  local id = utils.getUnusedID(p.ents)
   local new_player = Player{x=200, y=200, w=64, h=64, udp=p.udp, id=id}
   p.ents:addPlayer(id, new_player, p.ip, p.port)
   new_player:sendSpawnInfo(p.ip, p.port)

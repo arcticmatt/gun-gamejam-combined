@@ -1,5 +1,6 @@
 local Class = require('libs.hump.class')
 local encoder = require('utils.s_encoder')
+local vector = require('libs.hump.vector')
 local utils = require('utils.s_utils')
 
 local Ent = Class{}
@@ -14,6 +15,7 @@ function Ent:init(p)
   self.udp = p.udp
   self.id = p.id
   self.type = utils.types.ent
+  self.kb = vector(0, 0)
 end
 
 function Ent:getRect()

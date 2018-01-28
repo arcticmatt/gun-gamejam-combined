@@ -1,6 +1,5 @@
 local Class  = require('libs.hump.class')
 local Ent = require('entities.s_ent')
-local vector = require('libs.hump.vector')
 local utils = require('utils.s_utils')
 
 local Player = Class{
@@ -10,7 +9,6 @@ local Player = Class{
 function Player:init(p)
   Ent.init(self, p)
   self.type = utils.types.player -- OVERRIDE
-  self.kb = vector(0, 0)
   self.baseVelocity = 1000
 end
 

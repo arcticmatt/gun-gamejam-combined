@@ -60,7 +60,6 @@ function encoder:encodePlayer(ent)
       h = ent.h,
       id = ent.id,
       type = ent.type,
-
     },
   })
 end
@@ -73,7 +72,11 @@ end
 
 -- ===== Helper functions =====
 function encodePosition(ent, cmd)
-  return json.encode({ent_id = ent.id, cmd = cmd, params = {x = ent.x, y = ent.y}})
+  return json.encode({
+    ent_id = ent.id,
+    cmd = cmd,
+    params = {x = ent.x, y = ent.y, kb = ent.kb}
+  })
 end
 
 return encoder
