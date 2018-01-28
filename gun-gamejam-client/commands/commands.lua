@@ -1,6 +1,7 @@
 local encoder = require('utils.encoder')
 local Ent = require('entities.ent')
 local Player = require('entities.player')
+
 local commands = {}
 
 -- ===== LOCAL FUNCTIONS =====

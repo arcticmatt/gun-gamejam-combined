@@ -74,18 +74,17 @@ function love.update(dt)
     ents:addClient(c_ip, c_port)
 
     ent_id, cmd, params = decoder:decodeData(data)
-
-    if cmd == 'spawn' then
-      commands:handleSpawn(ents, udp, c_ip, c_port)
-  	elseif cmd == 'move' then
-      commands:handleMove(ents, ent_id, params, dt)
-    elseif cmd == 'new_ent' then
-      commands:handleNewEnt(ents, params, udp, c_ip, c_port)
-    elseif cmd == 'quit' then
-      commands:handleQuit(ents, ent_id, udp, c_ip, c_port)
-    else
-      print('unrecognised command:', cmd)
-    end
+    print('cmd', cmd)
+    commands:handle{
+      ent_id=ent_id,
+      cmd=cmd,
+      params=params,
+      ents=ents,
+      udp=udp,
+      ip=c_ip,
+      port=c_port,
+      dt=dt
+    }
   elseif c_ip ~= 'timeout' then
     error('Unknown network error: '..tostring(msg))
   end
