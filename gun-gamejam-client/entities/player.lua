@@ -1,6 +1,5 @@
 local Class = require('libs.hump.class')
 local Ent = require('entities.ent')
-local vector = require('libs.hump.vector')
 local sprite_loader = require('utils.sprite_loader')
 local anim8 = require('libs.anim8.anim8')
 local utils = require('utils.utils')
@@ -101,9 +100,6 @@ function Player:init(p)
   local g
 
   Ent.init(self, p)
-  -- All we need is input. Everything else on server
-  self.kb = vector(0, 0)
-
   self.type = utils.types.player
 
   spr, g = sprite_loader:getPlayerData()
@@ -152,7 +148,7 @@ end
 -- Our function
 function Player:updateState(cmd, params)
   if cmd == 'at' then
-    self.x, self.y = params.x, params.y
+    self.x, self.y, self.kb = params.x, params.y, params.kb
   end
 end
 

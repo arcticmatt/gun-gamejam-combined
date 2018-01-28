@@ -1,5 +1,6 @@
 local Class = require('libs.hump.class')
 local utils = require('utils.utils')
+local vector = require('libs.hump.vector')
 
 local Ent = Class{}
 
@@ -11,6 +12,7 @@ function Ent:init(p)
   self.h = p.h
   self.id = p.id
   self.type = utils.types.ent
+  self.kb = vector(0, 0)
 end
 
 function Ent:getPosition()

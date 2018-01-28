@@ -13,11 +13,11 @@ function Player:init(p)
 end
 
 function Player:move(dt, world)
-  self.kb = self.kb * self.baseVelocity * dt
-  self.kb:trimInplace(self.baseVelocity * dt)
+  kb = self.kb * self.baseVelocity * dt
+  kb:trimInplace(self.baseVelocity * dt)
 
   -- TODO: no boundaries
-  local x, y = self.x + self.kb.x, self.y + self.kb.y
+  local x, y = self.x + kb.x, self.y + kb.y
   self.x, self.y = world:move(self, x, y,
     function(item, other)
         if other.type == utils.types.player then

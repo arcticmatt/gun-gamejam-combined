@@ -8,7 +8,6 @@ local commands = {}
 -- ===== LOCAL FUNCTIONS =====
 local function handleAt(p)
   if p.ents:hasEnt(p.ent_id) then
-    print('handleAt params', table.tostring(p.params))
     p.ents:updateState(p.ent_id, p.cmd, p.params)
   else
     -- Send request for new ent
