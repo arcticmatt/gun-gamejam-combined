@@ -5,8 +5,10 @@ local input_bindings = {
   moveDown = function(player) player.kb.y = 1 end,
   moveLeft = function(player) player.kb.x = -1 end,
   moveRight = function(player) player.kb.x = 1 end,
-  stopVertical = function(player) player.kb.y = 0 end,
-  stopHorizontal = function(player) player.kb.x = 0 end,
+  stopUp = function(player) if player.kb.y == -1 then player.kb.y = 0 end end,
+  stopDown = function(player) if player.kb.y == 1 then player.kb.y = 0 end end,
+  stopLeft = function(player) if player.kb.x == -1 then player.kb.x = 0 end end,
+  stopRight = function(player) if player.kb.x == 1 then player.kb.y = 0 end end,
 }
 
 -- ===== PUBLIC FUNCTIONS =====

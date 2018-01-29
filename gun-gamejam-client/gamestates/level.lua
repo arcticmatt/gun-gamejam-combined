@@ -33,10 +33,10 @@ local keysDown = {
 }
 
 local keysReleased = {
-  up = "stopVertical",
-  down = "stopVertical",
-  left = "stopHorizontal",
-  right = "stopHorizontal",
+  up = "stopUp",
+  down = "stopDown",
+  left = "stopLeft",
+  right = "stopRight",
 }
 
 function love.keypressed(k)
