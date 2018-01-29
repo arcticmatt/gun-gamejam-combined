@@ -8,18 +8,15 @@ local commands = {}
 -- ===== LOCAL FUNCTIONS =====
 local function handleBinding(p)
 	ent = p.ents:getEnt(p.ent_id)
-	if ent == nil then
-		print(string.format('Trying to move ent %d which does not exist yet', p.ent_id))
-		return
-	end
+	if ent == nil then return end
 	input:handle(p.params.binding, ent)
 end
 
-local function handleMove(p)
-	local x, y = p.params.x, p.params.y
-	assert(x and y)
-  p.ents:move(p.ent_id, p.dt)
-end
+-- local function handleMove(p)
+-- 	local x, y = p.params.x, p.params.y
+-- 	assert(x and y)
+--   p.ents:move(p.ent_id, p.dt)
+-- end
 
 local function handleNewEnt(p)
   if p.ents:hasEnt(p.params.ent_id) then

@@ -9,7 +9,7 @@ local Player = Class{
 function Player:init(p)
   Ent.init(self, p)
   self.type = utils.types.player -- OVERRIDE
-  self.baseVelocity = 1000
+  self.baseVelocity = 250
 end
 
 function Player:move(dt, world)

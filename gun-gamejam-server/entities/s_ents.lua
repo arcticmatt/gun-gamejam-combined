@@ -54,8 +54,10 @@ function ents:draw()
   end
 end
 
-function ents:move(ent_id, dt)
-  self.entMap[ent_id]:move(dt, self.world)
+function ents:moveAll(dt)
+  for _, e in pairs(self.entMap) do
+    e:move(dt, self.world)
+  end
 end
 
 -- ===== Client methods =====

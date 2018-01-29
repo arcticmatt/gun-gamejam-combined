@@ -26,9 +26,9 @@ function Ent:draw()
   -- Do nothing by default
 end
 
-function Ent:move(x, y, dt, world)
-  self.x = x
-  self.y = y
+function Ent:move(dt, world)
+  print('need to override move method!')
+  assert(false)
 end
 
 function Ent:sendSpawnInfo(ip, port)

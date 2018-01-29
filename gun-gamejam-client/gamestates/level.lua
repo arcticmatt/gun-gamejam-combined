@@ -64,18 +64,6 @@ local function receiveFromServer()
 	until not data
 end
 
-local function sendToServer(dt)
-  -- Increase t by the dt
-	t = t + dt
-
-  -- Send player info to server
-	if t > updaterate then
-    udp:send(encoder:encodeMove(player))
-
-		t = t - updaterate -- set t for the next round
-	end
-end
-
 local function receiveSpawn()
   local data, msg = udp:receive()
 
@@ -152,7 +140,6 @@ function level:update(dt)
   local mouse_x, mouse_y = love.mouse.getPosition()
   player:update(dt, mouse_x, mouse_y)
 
-  sendToServer(dt)
   receiveFromServer()
 end
 

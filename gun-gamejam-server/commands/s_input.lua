@@ -8,7 +8,7 @@ local input_bindings = {
   stopUp = function(player) if player.kb.y == -1 then player.kb.y = 0 end end,
   stopDown = function(player) if player.kb.y == 1 then player.kb.y = 0 end end,
   stopLeft = function(player) if player.kb.x == -1 then player.kb.x = 0 end end,
-  stopRight = function(player) if player.kb.x == 1 then player.kb.y = 0 end end,
+  stopRight = function(player) if player.kb.x == 1 then player.kb.x = 0 end end,
 }
 
 -- ===== PUBLIC FUNCTIONS =====
