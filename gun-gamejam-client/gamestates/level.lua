@@ -26,17 +26,25 @@ local PLAYER_LAYER = 'players'
 
 -- ===== INPUT STUFF =====
 local keysDown = {
-  up = "moveUp",
-  down = "moveDown",
-  left = "moveLeft",
-  right = "moveRight",
+  up = "shootUp",
+  down = "shootDown",
+  left = "shootLeft",
+  right = "shootRight",
+  w = "moveUp",
+  s = "moveDown",
+  a = "moveLeft",
+  d = "moveRight",
 }
 
 local keysReleased = {
-  up = "stopUp",
-  down = "stopDown",
-  left = "stopLeft",
-  right = "stopRight",
+  up = "stopShootUp",
+  down = "stopShootDown",
+  left = "stopShootLeft",
+  right = "stopShootRight",
+  w = "stopUp",
+  s = "stopDown",
+  a = "stopLeft",
+  d = "stopRight",
 }
 
 function love.keypressed(k)

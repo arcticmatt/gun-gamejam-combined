@@ -16,7 +16,8 @@ local input_bindings = {
 function input:handle(binding, player)
   if input_bindings[binding] == nil then
     print('Unsupported binding!', binding)
-    assert(false)
+    return
+    -- assert(false)
   end
   input_bindings[binding](player)
 end
