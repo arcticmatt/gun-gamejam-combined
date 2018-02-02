@@ -12,7 +12,7 @@ function Player:init(p)
   self.baseVelocity = 250
 end
 
-function Player:move(dt, world)
+function Player:update(dt, world)
   kb = self.kb * self.baseVelocity * dt
   kb:trimInplace(self.baseVelocity * dt)
 
@@ -26,10 +26,6 @@ function Player:move(dt, world)
         return 'slide'
     end
   )
-end
-
-function Player:draw()
-  love.graphics.rectangle('fill', self:getRect())
 end
 
 return Player

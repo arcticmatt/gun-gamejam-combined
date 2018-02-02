@@ -22,11 +22,7 @@ function Ent:getRect()
   return self.x, self.y, self.w, self.h
 end
 
-function Ent:draw()
-  -- Do nothing by default
-end
-
-function Ent:move(dt, world)
+function Ent:update(dt, world)
   print('need to override move method!')
   assert(false)
 end

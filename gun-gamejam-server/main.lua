@@ -66,8 +66,8 @@ function love.update(dt)
   -- Check for disconnects
   ents:checkForDisconnects(udp)
 
-  -- Move everything
-  ents:moveAll(dt)
+  -- Update everything
+  ents:update(dt)
 
   -- Get data and client location
   data, c_ip, c_port = udp:receivefrom()

@@ -14,6 +14,12 @@ local function makeKey(ip, port)
 end
 
 -- ===== Ent methods =====
+function ents:update(dt)
+  for _, e in pairs(self.entMap) do
+    e:update(dt, self.world)
+  end
+end
+
 function ents:setWorld(world)
   self.world = world
 end
@@ -51,12 +57,6 @@ end
 function ents:draw()
   for k, e in pairs(self.entMap) do
     e:draw(k)
-  end
-end
-
-function ents:moveAll(dt)
-  for _, e in pairs(self.entMap) do
-    e:move(dt, self.world)
   end
 end
 
