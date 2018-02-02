@@ -136,7 +136,7 @@ function level:update(dt)
     player = receiveSpawn()
 
     if player then
-      ents:add(player.id, player)
+      ents:add(player)
     end
 
     return

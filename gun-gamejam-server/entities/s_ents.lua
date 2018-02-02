@@ -24,15 +24,15 @@ function ents:setWorld(world)
   self.world = world
 end
 
-function ents:add(ent_id, ent)
+function ents:add(ent)
   assert(self.world ~= nil)
-  self.entMap[ent_id] = ent
+  self.entMap[ent.id] = ent
   self.world:add(ent, ent:getRect())
 end
 
 function ents:addMany(ents)
-  for k, e in pairs(ents) do
-    self:add(k, e)
+  for _, e in pairs(ents) do
+    self:add(e)
   end
 end
 
@@ -75,12 +75,12 @@ function ents:addClient(ip, port)
 end
 
 -- Add player to entMap and update corresponding client.
-function ents:addPlayer(player_id, ent, ip, port)
-  self:add(player_id, ent)
+function ents:addPlayer(player, ip, port)
+  self:add(player)
   local key = makeKey(ip, port)
   if self.clients[key] then
     print(string.format('Adding player to existing client=%s', key))
-    self.clients[key].player_id = player_id
+    self.clients[key].player_id = player.id
   else
     assert(false)
   end

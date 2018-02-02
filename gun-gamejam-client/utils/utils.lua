@@ -1,6 +1,11 @@
 local utils = {}
 
-utils.types = { ent="ENT", player="PLAYER" } -- sync with server
+-- sync with server
+utils.types = {
+  ent="ENT",
+  player="PLAYER",
+  bullet="BULLET",
+}
 
 -- ===== util funcs from http://lua-users.org/wiki/TableUtils =====
 function table.val_to_str ( v )

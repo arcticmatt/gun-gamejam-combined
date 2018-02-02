@@ -8,13 +8,13 @@ local ents = {
   entMap = {},
 }
 
-function ents:add(ent_id, entity)
-  self.entMap[ent_id] = entity
+function ents:add(ent)
+  self.entMap[ent.id] = ent
 end
 
 function ents:addMany(ents)
-  for k, e in pairs(ents) do
-    self:add(k, e)
+  for _, e in pairs(ents) do
+    self:add(e.id, e)
   end
 end
 

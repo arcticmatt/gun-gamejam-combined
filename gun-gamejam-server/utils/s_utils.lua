@@ -2,7 +2,12 @@ local utils = {}
 
 local MAX_IDS = 10
 
-utils.types = { ent="ENT", player="PLAYER" } -- sync with client
+-- sync with client
+utils.types = {
+  ent="ENT",
+  player="PLAYER",
+  bullet="BULLET",
+}
 
 -- ===== Helper functions =====
 function utils.getUnusedID(ents)
