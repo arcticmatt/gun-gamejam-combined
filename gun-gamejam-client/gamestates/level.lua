@@ -134,11 +134,8 @@ function level:update(dt)
     return
   end
 
-  -- Update player
-  -- Note: this is the only ent that updates on the client (where updating means
-  -- changing some variables). All other ents update entirely based on the server.
-  local mouse_x, mouse_y = love.mouse.getPosition()
-  player:update(dt, mouse_x, mouse_y)
+  -- Update player. Needed for animation
+  player:update(dt)
 
   receiveFromServer()
 end
