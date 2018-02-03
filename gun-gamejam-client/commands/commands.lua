@@ -19,7 +19,7 @@ end
 local function handleNewEnt(p)
   -- TODO: should Ent be abstract?
   local new_ent = p.ents.factory(p.params.type, p.params)
-  p.ents:add(new_ent.id, new_ent)
+  p.ents:add(new_ent)
 end
 
 local function handleRemove(p)

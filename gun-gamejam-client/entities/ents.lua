@@ -3,6 +3,7 @@ local utils = require('utils.utils')
 -- Ents go here
 local Ent = require('entities.ent')
 local Player = require('entities.player')
+local Bullet = require('entities.bullet')
 
 local ents = {
   entMap = {},
@@ -51,6 +52,8 @@ function ents.factory(type, params)
     return Ent(params)
   elseif type == utils.types.player then
     return Player(params)
+  elseif type == utils.types.bullet then
+    return Bullet(params)
   else
     error('ents.factory: unsupported type')
   end

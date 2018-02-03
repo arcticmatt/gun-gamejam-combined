@@ -23,11 +23,12 @@ end
 
 function ents:shoot(dt)
   for _, e in pairs(self.entMap) do
-    if e.type ~= utils.types.player then return end
+    if e.type ~= utils.types.player then goto continue end
 
     new_bullet = e:shoot(dt, self.world, utils.getUnusedID(self))
-    if new_bullet == nil then return end
+    if new_bullet == nil then goto continue end
     self:add(new_bullet)
+    ::continue::
   end
 end
 
@@ -37,6 +38,7 @@ end
 
 function ents:add(ent)
   assert(self.world ~= nil)
+  assert(self.entMap[ent.id] == nil, "you cannot override an existing ent")
   self.entMap[ent.id] = ent
   self.world:add(ent, ent:getRect())
 end

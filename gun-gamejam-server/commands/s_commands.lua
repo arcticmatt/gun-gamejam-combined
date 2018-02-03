@@ -12,12 +12,6 @@ local function handleBinding(p)
 	input:handle(p.params.binding, ent)
 end
 
--- local function handleMove(p)
--- 	local x, y = p.params.x, p.params.y
--- 	assert(x and y)
---   p.ents:move(p.ent_id, p.dt)
--- end
-
 local function handleNewEnt(p)
   if p.ents:hasEnt(p.params.ent_id) then
     print(string.format('Sending back new ent with id=%d', p.params.ent_id))

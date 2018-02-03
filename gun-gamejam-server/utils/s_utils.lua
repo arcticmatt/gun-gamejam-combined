@@ -1,6 +1,6 @@
 local utils = {}
 
-local MAX_IDS = 10
+local MAX_IDS = 100
 
 -- sync with client
 utils.types = {

@@ -13,7 +13,7 @@ function Player:init(p)
   self.type = utils.types.player -- OVERRIDE
   self.baseVelocity = 250
   self.bullet_kb = vector(0, 0)
-  self.timeSinceLastShot = 10;
+  self.timeSinceLastShot = 10
   self.shootingRate = .25;
 end
 

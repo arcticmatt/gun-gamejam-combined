@@ -29,27 +29,6 @@ end
 -- input: an ent
 -- output: serialized ent
 function encoder:encodeEnt(ent)
-  -- pass work off to encoders for specific subclasses. if the type is just ent,
-  -- we'll do the encoding here.
-  if ent.type == utils.types.player then
-    return self:encodePlayer(ent)
-  end
-
-  return json.encode({
-    ent_id = ent.id,
-    cmd = 'new_ent',
-    params = {
-      x = ent.x,
-      y = ent.y,
-      w = ent.w,
-      h = ent.h,
-      id = ent.id,
-      type = ent.type,
-    },
-  })
-end
-
-function encoder:encodePlayer(ent)
   return json.encode({
     ent_id = ent.id,
     cmd = 'new_ent',
