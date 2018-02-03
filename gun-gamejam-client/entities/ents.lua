@@ -51,6 +51,8 @@ function ents.factory(type, params)
     return Ent(params)
   elseif type == utils.types.player then
     return Player(params)
+  else
+    error('ents.factory: unsupported type')
   end
 end
 

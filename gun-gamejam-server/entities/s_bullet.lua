@@ -29,3 +29,5 @@ function Bullet:update(dt, world)
     end
   )
 end
+
+return Bullet

@@ -39,6 +39,7 @@ end
 -- The only function this module exposes
 function input:handle(binding, player)
   handleMove(binding, player)
+  handleShoot(binding, player)
   -- TODO: call handleShoot
 end
 

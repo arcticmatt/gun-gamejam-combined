@@ -69,6 +69,9 @@ function love.update(dt)
   -- Update everything
   ents:update(dt)
 
+  -- Shoot
+  ents:shoot(dt)
+
   -- Get data and client location
   data, c_ip, c_port = udp:receivefrom()
   is_connected = data and c_ip and c_port

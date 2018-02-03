@@ -1,4 +1,5 @@
 local encoder = require('utils.s_encoder')
+local utils = require('utils.s_utils')
 
 local ents = {
   entMap = {},
@@ -20,6 +21,16 @@ function ents:update(dt)
   end
 end
 
+function ents:shoot(dt)
+  for _, e in pairs(self.entMap) do
+    if e.type ~= utils.types.player then return end
+
+    new_bullet = e:shoot(dt, self.world, utils.getUnusedID(self))
+    if new_bullet == nil then return end
+    self:add(new_bullet)
+  end
+end
+
 function ents:setWorld(world)
   self.world = world
 end
@@ -30,8 +41,8 @@ function ents:add(ent)
   self.world:add(ent, ent:getRect())
 end
 
-function ents:addMany(ents)
-  for _, e in pairs(ents) do
+function ents:addMany(ents_to_add)
+  for _, e in pairs(ents_to_add) do
     self:add(e)
   end
 end
