@@ -22,7 +22,7 @@ function Bullet:update(dt, world)
   local x, y = self.x + kb.x, self.y + kb.y
   self.x, self.y = world:move(self, x, y,
     function(item, other)
-        if other.type == utils.types.bullet then
+        if other.type == utils.types.bullet or other.id == self.owner.id then
           return false
         end
         return 'slide'

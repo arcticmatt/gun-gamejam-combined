@@ -7,7 +7,7 @@ local sti = require('libs.sti.sti.init')
 
 -- ===== Timing/game-loop stuff =====
 local data, c_ip, c_port, cmd, params, dt, current_time
-local broadcast_interval = 0.05
+local broadcast_interval = 0.02
 local previous_time = socket.gettime()
 local previous_broadcast = socket.gettime()
 

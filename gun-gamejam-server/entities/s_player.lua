@@ -14,7 +14,7 @@ function Player:init(p)
   self.baseVelocity = 250
   self.bullet_kb = vector(0, 0)
   self.timeSinceLastShot = 10
-  self.shootingRate = .25;
+  self.shootingRate = 1
 end
 
 function Player:update(dt, world)
@@ -25,7 +25,7 @@ function Player:update(dt, world)
   local x, y = self.x + kb.x, self.y + kb.y
   self.x, self.y = world:move(self, x, y,
     function(item, other)
-        if other.type == utils.types.player then
+        if other.type == utils.types.player or other.owner.id == self.id then
           return false
         end
         return 'slide'
