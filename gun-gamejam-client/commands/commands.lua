@@ -8,18 +8,13 @@ local commands = {}
 -- ===== LOCAL FUNCTIONS =====
 local function handleAt(p)
   if p.ents:hasEnt(p.ent_id) then
+    -- Update existing ent
     p.ents:updateState(p.ent_id, p.cmd, p.params)
   else
-    -- Send request for new ent
-    print(string.format('Sending request for new ent with id=%d', p.ent_id))
-    udp:send(encoder:encodeNewEnt(p.ent_id))
+    -- Add new ent
+    local new_ent = p.ents.factory(p.params.type, p.params)
+    p.ents:add(new_ent)
   end
-end
-
-local function handleNewEnt(p)
-  -- TODO: should Ent be abstract?
-  local new_ent = p.ents.factory(p.params.type, p.params)
-  p.ents:add(new_ent)
 end
 
 local function handleRemove(p)
@@ -35,7 +30,6 @@ end
 
 local command_bindings = {
   at = handleAt,
-  new_ent = handleNewEnt,
   remove = handleRemove,
   spawn = handleSpawn,
 }

@@ -12,16 +12,6 @@ local function handleBinding(p)
 	input:handle(p.params.binding, ent)
 end
 
-local function handleNewEnt(p)
-  if p.ents:hasEnt(p.params.ent_id) then
-    print(string.format('Sending back new ent with id=%d', p.params.ent_id))
-    local e = p.ents:getEnt(p.params.ent_id)
-    p.udp:sendto(encoder:encodeEnt(e), p.ip, p.port)
-  else
-    print(string.format('Error! New ent was requested, but id=%d does not exist', p.params.ent_id))
-  end
-end
-
 local function handleQuit(p)
   p.ents:handleQuit(p.ent_id, p.udp, p.ip, p.port)
 end
@@ -35,8 +25,6 @@ end
 
 local command_bindings = {
   binding = handleBinding,
-  move = handleMove,
-  new_ent = handleNewEnt,
   quit = handleQuit,
   spawn = handleSpawn,
 }

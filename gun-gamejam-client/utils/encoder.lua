@@ -20,27 +20,6 @@ function encoder:encodeBinding(player, binding)
   })
 end
 
--- TODO: deprecate?
--- input: an ent
--- output: request to move the ent
-function encoder:encodeMove(player)
-  return json.encode({
-    ent_id = player.id,
-    cmd = 'move',
-    params = {x = player.kb.x, y = player.kb.y},
-  })
-end
-
--- input: an ent
--- output: request for new ent
-function encoder:encodeNewEnt(ent_id)
-  return json.encode({
-    ent_id = 0,
-    cmd = 'new_ent',
-    params = {ent_id = ent_id},
-  })
-end
-
 -- input: ent_id
 -- output: request to quit
 function encoder:encodeQuit(ent_id)
