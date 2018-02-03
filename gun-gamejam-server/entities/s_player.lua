@@ -25,7 +25,9 @@ function Player:update(dt, world)
   local x, y = self.x + kb.x, self.y + kb.y
   self.x, self.y = world:move(self, x, y,
     function(item, other)
-        if other.type == utils.types.player or other.owner.id == self.id then
+        -- Not every ent has an owner
+        if type(other.owner) == "table" then owner_id = other.owner.id else owner_id = nil end
+        if other.type == utils.types.player or owner_id == self.id then
           return false
         end
         return 'slide'
