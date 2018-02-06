@@ -34,8 +34,8 @@ function Ent:update(dt)
 end
 
 function Ent:updateState(cmd, params)
-  -- TODO: again, this should be abstract. for now, just want to test with hacky shit
-  if cmd == 'at' then
+  -- Not sure if I'm ever gonna need more than this command
+  if cmd == 'ent_info' then
     self.x, self.y, self.kb = params.x, params.y, params.kb
   end
 end

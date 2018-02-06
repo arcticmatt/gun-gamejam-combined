@@ -75,7 +75,8 @@ local function receiveFromServer()
     end
     -- print(string.format("loop took %f seconds", socket.gettime() - t))
 	until not data
-  print(string.format("receiveFromServer ran for %f seconds", socket.gettime() - t))
+  print(string.format("receiveFromServer ran for %d loops", num_loops))
+  -- print(string.format("receiveFromServer ran for %f seconds", socket.gettime() - t))
 end
 
 local function receiveSpawn()

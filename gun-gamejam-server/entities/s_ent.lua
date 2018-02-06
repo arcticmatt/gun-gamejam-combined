@@ -32,8 +32,8 @@ function Ent:sendSpawnInfo(ip, port)
   self.udp:sendto(encoder:encodeSpawn(self), ip, port)
 end
 
-function Ent:sendAtInfo(ip, port)
-  self.udp:sendto(encoder:encodeAt(self), ip, port)
+function Ent:sendEntInfo(ip, port)
+  self.udp:sendto(encoder:encodeEntInfo(self), ip, port)
 end
 
 return Ent

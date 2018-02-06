@@ -117,10 +117,10 @@ function ents:removeClient(ip, port)
 end
 
 -- ===== Networking methods =====
-function ents:sendAtInfo()
+function ents:sendEntInfo()
   for _, client in pairs(self.clients) do
     for _, e in pairs(self.entMap) do
-      e:sendAtInfo(client.ip, client.port)
+      e:sendEntInfo(client.ip, client.port)
     end
   end
 end

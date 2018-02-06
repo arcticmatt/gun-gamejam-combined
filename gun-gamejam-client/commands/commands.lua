@@ -6,7 +6,7 @@ local utils = require('utils.utils')
 local commands = {}
 
 -- ===== LOCAL FUNCTIONS =====
-local function handleAt(p)
+local function handleEntInfo(p)
   if p.ents:hasEnt(p.ent_id) then
     -- Update existing ent
     p.ents:updateState(p.ent_id, p.cmd, p.params)
@@ -29,7 +29,7 @@ local function handleSpawn(p)
 end
 
 local command_bindings = {
-  at = handleAt,
+  ent_info = handleEntInfo,
   remove = handleRemove,
   spawn = handleSpawn,
 }

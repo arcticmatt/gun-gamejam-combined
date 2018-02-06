@@ -40,9 +40,9 @@ function encoder:encodeSpawn(ent)
 end
 
 -- input: an ent
--- output: ent's move info
-function encoder:encodeAt(ent)
-  return encodeEnt(ent, 'at')
+-- output: ent's info (location, velocity, etc.)
+function encoder:encodeEntInfo(ent)
+  return encodeEnt(ent, 'ent_info')
 end
 
 -- input: an ent id

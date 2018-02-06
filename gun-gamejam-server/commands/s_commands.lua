@@ -5,7 +5,7 @@ local input = require('commands.s_input')
 
 local commands = {}
 
--- ===== LOCAL FUNCTIONS =====
+-- ===== LOCAL HANDLE FUNCTIONS =====
 local function handleBinding(p)
 	ent = p.ents:getEnt(p.ent_id)
 	if ent == nil then return end

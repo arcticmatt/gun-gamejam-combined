@@ -94,7 +94,7 @@ function love.update(dt)
   end
 
   if time_since_last_update > broadcast_interval then
-    ents:sendAtInfo()
+    ents:sendEntInfo()
     time_since_last_update = 0
   end
 
