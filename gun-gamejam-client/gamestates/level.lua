@@ -60,7 +60,11 @@ end
 
 -- ===== LOCAL FUNCTIONS =====
 local function receiveFromServer()
+  t = socket.gettime()
+  local num_loops = 0
   repeat
+    num_loops = num_loops + 1
+    t = socket.gettime()
     data, msg = udp:receive()
 
     if data then
@@ -69,7 +73,9 @@ local function receiveFromServer()
     elseif msg ~= 'timeout' then
 			error('Network error: '..tostring(msg))
     end
+    -- print(string.format("loop took %f seconds", socket.gettime() - t))
 	until not data
+  print(string.format("receiveFromServer ran for %f seconds", socket.gettime() - t))
 end
 
 local function receiveSpawn()

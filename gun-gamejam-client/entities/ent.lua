@@ -36,7 +36,7 @@ end
 function Ent:updateState(cmd, params)
   -- TODO: again, this should be abstract. for now, just want to test with hacky shit
   if cmd == 'at' then
-    self.x, self.y = params.x, params.y
+    self.x, self.y, self.kb = params.x, params.y, params.kb
   end
 end
 

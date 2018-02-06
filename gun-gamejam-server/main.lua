@@ -6,8 +6,9 @@ local commands = require('commands.s_commands')
 local sti = require('libs.sti.sti.init')
 
 -- ===== Timing/game-loop stuff =====
-local data, c_ip, c_port, cmd, params, dt, current_time
-local broadcast_interval = 0.02
+local data, c_ip, c_port, cmd, params, dt
+local time_since_last_update = 10
+local broadcast_interval = 0.01
 local previous_time = socket.gettime()
 local previous_broadcast = socket.gettime()
 
@@ -51,11 +52,9 @@ end
 -- ===== Main loop =====
 print 'Beginning server loop.'
 function love.update(dt)
--- while true do
 
   -- Do time calculations at beginning
-  current_time = socket.gettime()
-  dt = current_time - previous_time
+  time_since_last_update = time_since_last_update + dt
 
   -- Accept new clients
   client = tcp:accept()
@@ -94,12 +93,11 @@ function love.update(dt)
     error('Unknown network error: '..tostring(msg))
   end
 
-  if current_time - previous_broadcast > broadcast_interval then
+  if time_since_last_update > broadcast_interval then
     ents:sendAtInfo()
-    previous_broadcast = current_time
+    time_since_last_update = 0
   end
 
-  previous_time = current_time
   socket.sleep(0.01)
 end
 

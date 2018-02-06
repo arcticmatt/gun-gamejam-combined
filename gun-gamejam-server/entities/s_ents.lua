@@ -25,7 +25,7 @@ function ents:shoot(dt)
   for _, e in pairs(self.entMap) do
     if e.type ~= utils.types.player then goto continue end
 
-    new_bullet = e:shoot(dt, self.world, utils.getUnusedID(self))
+    new_bullet = e:shoot(dt, utils.getUnusedID(self))
     if new_bullet == nil then goto continue end
     self:add(new_bullet)
     ::continue::

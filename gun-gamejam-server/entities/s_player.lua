@@ -35,7 +35,7 @@ function Player:update(dt, world)
   )
 end
 
-function Player:shoot(dt, world, bullet_id)
+function Player:shoot(dt, bullet_id)
   self.timeSinceLastShot = self.timeSinceLastShot + dt
   if self.timeSinceLastShot < self.shootingRate then return end
   if self.bullet_kb == vector(0, 0) then return end

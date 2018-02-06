@@ -63,13 +63,6 @@ function Player:resolveState(dt)
   end
 end
 
--- Our function
-function Player:updateState(cmd, params)
-  if cmd == 'at' then
-    self.x, self.y, self.kb = params.x, params.y, params.kb
-  end
-end
-
 -- Make sure you add new animations here. Flips all of them depending on the
 -- player facing direction
 function Player:flip()
