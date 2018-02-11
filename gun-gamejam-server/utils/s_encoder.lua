@@ -15,9 +15,9 @@ local encoder = {}
 
 -- ===== LOCAL FUNCTIONS =====
 -- input: an ent
--- output: serialized ent
-local function encodeEnt(ent, cmd)
-  return json.encode({
+-- output: a table representing the ent's information
+local function getEntTable(ent, cmd)
+  return {
     ent_id = ent.id,
     cmd = cmd,
     params = {
@@ -29,6 +29,25 @@ local function encodeEnt(ent, cmd)
       type = ent.type,
       kb = ent.kb
     },
+  }
+end
+
+-- input: an ent
+-- output: serialized ent
+local function encodeEnt(ent, cmd)
+  return json.encode(getEntTable(ent, cmd))
+end
+
+local function encodeEnts(ent_map, cmd)
+  local batched_info = {}
+  for ent_id, ent in pairs(ent_map) do
+    batched_info[tostring(ent_id)] = getEntTable(ent, cmd)
+  end
+  return json.encode({
+    ent_id = -1,
+    cmd = 'batched_info',
+    params = {},
+    payload = batched_info,
   })
 end
 
@@ -43,6 +62,10 @@ end
 -- output: ent's info (location, velocity, etc.)
 function encoder:encodeEntInfo(ent)
   return encodeEnt(ent, 'ent_info')
+end
+
+function encoder:encodeEntInfoBatched(ents)
+  return encodeEnts(ents, 'ent_info')
 end
 
 -- input: an ent id

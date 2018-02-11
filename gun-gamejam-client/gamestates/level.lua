@@ -68,8 +68,8 @@ local function receiveFromServer()
     data, msg = udp:receive()
 
     if data then
-      ent_id, cmd, params = decoder:decodeData(data)
-      commands:handle{ents=ents, ent_id=ent_id, cmd=cmd, params=params, udp=udp}
+      ent_id, cmd, params, payload = decoder:decodeData(data)
+      commands:handle{ents=ents, ent_id=ent_id, cmd=cmd, params=params, udp=udp, payload=payload}
     elseif msg ~= 'timeout' then
 			error('Network error: '..tostring(msg))
     end

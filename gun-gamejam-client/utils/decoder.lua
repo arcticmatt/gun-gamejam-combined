@@ -8,13 +8,14 @@ local decoder = {}
 --   ent_id: ...,
 --   cmd: ...,
 --   params: ...,
+--   payload: ...,
 -- }
 
 -- input: data encoded by json library
--- output: int, string, table
+-- output: int, string, table, table
 function decoder:decodeData(data)
   t = json.decode(data)
-  return t.ent_id, t.cmd, t.params
+  return t.ent_id, t.cmd, t.params, t.payload
 end
 
 return decoder

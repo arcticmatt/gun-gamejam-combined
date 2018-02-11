@@ -94,7 +94,8 @@ function love.update(dt)
   end
 
   if time_since_last_update > broadcast_interval then
-    ents:sendEntInfo()
+    -- ents:sendEntInfo()
+    commands:send{ents=ents, cmd='ent_info', udp=udp}
     time_since_last_update = 0
   end
 

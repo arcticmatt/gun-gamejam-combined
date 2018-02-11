@@ -6,6 +6,12 @@ local utils = require('utils.utils')
 local commands = {}
 
 -- ===== LOCAL FUNCTIONS =====
+local function handleBatchedInfo(p)
+  -- assert(p.payload ~= nil)
+  -- for _, cmd_table in pairs(p.payload)
+  --   commands:handle(cmd_)
+end
+
 local function handleEntInfo(p)
   if p.ents:hasEnt(p.ent_id) then
     -- Update existing ent
@@ -29,6 +35,7 @@ local function handleSpawn(p)
 end
 
 local command_bindings = {
+  batched_info = handleBatchedInfo,
   ent_info = handleEntInfo,
   remove = handleRemove,
   spawn = handleSpawn,

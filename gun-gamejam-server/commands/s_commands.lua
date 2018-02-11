@@ -23,20 +23,39 @@ local function handleSpawn(p)
   new_player:sendSpawnInfo(p.ip, p.port)
 end
 
-local command_bindings = {
+local handle_bindings = {
   binding = handleBinding,
   quit = handleQuit,
   spawn = handleSpawn,
 }
 
+-- ===== LOCAL SEND FUNCTIONS =====
+local function sendEntInfo(p)
+	for _, client in pairs(p.ents.clients) do
+		local ent_info_batched = encoder:encodeEntInfoBatched(p.ents.entMap)
+		p.udp:sendto(ent_info_batched, client.ip, client.port)
+	end
+end
+
+local send_bindings = {
+  ent_info = sendEntInfo,
+}
+
 -- ===== PUBLIC FUNCTIONS =====
--- The only function this module exposes
 function commands:handle(p)
-  if command_bindings[p.cmd] == nil then
-    print('Unsuppported command!', p.cmd)
+  if handle_bindings[p.cmd] == nil then
+    print('Unsuppported handle command!', p.cmd)
     assert(false)
   end
-  return command_bindings[p.cmd](p)
+  return handle_bindings[p.cmd](p)
+end
+
+function commands:send(p)
+  if send_bindings[p.cmd] == nil then
+    print('Unsuppported send command!', p.cmd)
+    assert(false)
+  end
+  return send_bindings[p.cmd](p)
 end
 
 return commands
