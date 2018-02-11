@@ -1,23 +1,11 @@
 local utils = {}
 
-local MAX_IDS = 100
-
 -- sync with client
 utils.types = {
   ent="ENT",
   player="PLAYER",
   bullet="BULLET",
 }
-
--- ===== Helper functions =====
-function utils.getUnusedID(ents)
-  local id
-  repeat
-    math.randomseed(os.time())
-    id = math.random(MAX_IDS)
-  until id ~= 0 and not ents:getEnt(id)
-  return id
-end
 
 -- ===== util funcs from http://lua-users.org/wiki/TableUtils =====
 function table.val_to_str ( v )

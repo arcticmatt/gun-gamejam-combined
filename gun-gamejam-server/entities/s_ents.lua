@@ -7,6 +7,7 @@ local ents = {
   -- the ip, port, tcp connection, and ent_id of the client's player.
   clients = {}, -- 'ip:port' -> { ip = ip, port = port, tcp = tcp, player_id = ent_id }
   world = nil,
+  nextID = 0,
 }
 
 -- ===== Local functions =====
@@ -22,14 +23,18 @@ function ents:update(dt)
 end
 
 function ents:shoot(dt)
+  should_send = false
   for _, e in pairs(self.entMap) do
     if e.type ~= utils.types.player then goto continue end
 
-    new_bullet = e:shoot(dt, utils.getUnusedID(self))
+    new_bullet = e:shoot(dt, self.nextID)
     if new_bullet == nil then goto continue end
+    self:getNextID()
     self:add(new_bullet)
+    should_send = true
     ::continue::
   end
+  return should_send
 end
 
 function ents:setWorld(world)
@@ -71,6 +76,13 @@ function ents:draw()
   for k, e in pairs(self.entMap) do
     e:draw(k)
   end
+end
+
+function ents:getNextID()
+  id = self.nextID
+  self.nextID = id + 1
+  print('got id', id)
+  return id
 end
 
 -- ===== Client methods =====
@@ -117,14 +129,6 @@ function ents:removeClient(ip, port)
 end
 
 -- ===== Networking methods =====
-function ents:sendEntInfo()
-  for _, client in pairs(self.clients) do
-    for _, e in pairs(self.entMap) do
-      e:sendEntInfo(client.ip, client.port)
-    end
-  end
-end
-
 function ents:sendRemoveInfo(ent_id, udp)
   for _, client in pairs(self.clients) do
     udp:sendto(encoder:encodeRemove(ent_id), client.ip, client.port)

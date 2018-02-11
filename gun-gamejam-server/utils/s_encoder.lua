@@ -58,12 +58,6 @@ function encoder:encodeSpawn(ent)
   return encodeEnt(ent, 'spawn')
 end
 
--- input: an ent
--- output: ent's info (location, velocity, etc.)
-function encoder:encodeEntInfo(ent)
-  return encodeEnt(ent, 'ent_info')
-end
-
 function encoder:encodeEntInfoBatched(ents)
   return encodeEnts(ents, 'ent_info')
 end

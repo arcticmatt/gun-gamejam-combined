@@ -52,7 +52,6 @@ end
 -- ===== Main loop =====
 print 'Beginning server loop.'
 function love.update(dt)
-
   -- Do time calculations at beginning
   time_since_last_update = time_since_last_update + dt
 
@@ -69,7 +68,7 @@ function love.update(dt)
   ents:update(dt)
 
   -- Shoot
-  ents:shoot(dt)
+  should_send = ents:shoot(dt)
 
   -- Get data and client location
   data, c_ip, c_port = udp:receivefrom()
@@ -93,8 +92,7 @@ function love.update(dt)
     error('Unknown network error: '..tostring(msg))
   end
 
-  if time_since_last_update > broadcast_interval then
-    -- ents:sendEntInfo()
+  if time_since_last_update > broadcast_interval or should_send then
     commands:send{ents=ents, cmd='ent_info', udp=udp}
     time_since_last_update = 0
   end
