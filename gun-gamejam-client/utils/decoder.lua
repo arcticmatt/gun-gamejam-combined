@@ -12,10 +12,15 @@ local decoder = {}
 -- }
 
 -- input: data encoded by json library
--- output: int, string, table, table
 function decoder:decodeData(data)
+  if data == nil then return {} end
   t = json.decode(data)
-  return t.ent_id, t.cmd, t.params, t.payload
+  return {
+    ent_id=t.ent_id,
+    cmd=t.cmd,
+    params=t.params,
+    payload=t.payload
+  }
 end
 
 return decoder

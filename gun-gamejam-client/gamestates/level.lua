@@ -68,8 +68,7 @@ local function receiveFromServer()
     data, msg = udp:receive()
 
     if data then
-      ent_id, cmd, params, payload = decoder:decodeData(data)
-      commands:handle{ents=ents, ent_id=ent_id, cmd=cmd, params=params, udp=udp, payload=payload}
+      commands:handle{ents=ents, udp=udp, data=data}
     elseif msg ~= 'timeout' then
 			error('Network error: '..tostring(msg))
     end
@@ -83,10 +82,7 @@ local function receiveSpawn()
   local data, msg = udp:receive()
 
   if data then
-    ent_id, cmd, params = decoder:decodeData(data)
-    if cmd == 'spawn' then
-      return commands:handle{ent_id=ent_id, cmd=cmd, params=params}
-    end
+    return commands:handle{data=data}
   end
 end
 

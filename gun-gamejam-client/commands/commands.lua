@@ -1,3 +1,4 @@
+local decoder = require('utils.decoder')
 local encoder = require('utils.encoder')
 local Ent = require('entities.ent')
 local Player = require('entities.player')
@@ -6,10 +7,19 @@ local utils = require('utils.utils')
 local commands = {}
 
 -- ===== LOCAL FUNCTIONS =====
+local function union(t1, t2)
+  new_t = {}
+  for k, v in pairs(t1) do new_t[k] = v end
+  for k, v in pairs(t2) do new_t[k] = v end
+  return new_t
+end
+
 local function handleBatchedInfo(p)
-  -- assert(p.payload ~= nil)
-  -- for _, cmd_table in pairs(p.payload)
-  --   commands:handle(cmd_)
+  assert(p.payload ~= nil)
+  for _, cmd_table in pairs(p.payload) do
+    cmd_table.ents = p.ents
+    commands:handle(cmd_table)
+  end
 end
 
 local function handleEntInfo(p)
@@ -44,10 +54,15 @@ local command_bindings = {
 -- ===== PUBLIC FUNCTIONS =====
 -- The only function this module exposes
 function commands:handle(p)
+  data_params = decoder:decodeData(p.data)
+  p = union(p, data_params)
+  p.data = nil
+
   if command_bindings[p.cmd] == nil then
     print('Unsupported command!', p.cmd)
     assert(false)
   end
+
   return command_bindings[p.cmd](p)
 end
 
