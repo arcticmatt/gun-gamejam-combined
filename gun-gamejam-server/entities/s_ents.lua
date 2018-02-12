@@ -146,12 +146,19 @@ function ents:checkForDisconnects(udp)
   end
 end
 
--- ===== Misc =====
+-- ===== Handling =====
 function ents:handleQuit(player_id, udp, ip, port)
   print(string.format('Client with player=%d at %s:%d is quitting', player_id, ip, port))
   self:remove(player_id)
   self:removeClient(ip, port)
   self:sendRemoveInfo(player_id, udp)
+end
+
+function ents:sendEntInfo(udp)
+	for _, client in pairs(self.clients) do
+		local ent_info_batched = encoder:encodeEntInfoBatched(self.entMap)
+		udp:sendto(ent_info_batched, client.ip, client.port)
+	end
 end
 
 return ents

@@ -1,5 +1,4 @@
 local Player = require('entities.s_player')
-local encoder = require('utils.s_encoder')
 local utils = require('utils.s_utils')
 local input = require('commands.s_input')
 
@@ -31,10 +30,7 @@ local handle_bindings = {
 
 -- ===== LOCAL SEND FUNCTIONS =====
 local function sendEntInfo(p)
-	for _, client in pairs(p.ents.clients) do
-		local ent_info_batched = encoder:encodeEntInfoBatched(p.ents.entMap)
-		p.udp:sendto(ent_info_batched, client.ip, client.port)
-	end
+	p.ents:sendEntInfo(p.udp)
 end
 
 local send_bindings = {
