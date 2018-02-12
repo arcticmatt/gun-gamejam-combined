@@ -7,6 +7,15 @@ local utils = require('utils.utils')
 local commands = {}
 
 -- ===== LOCAL FUNCTIONS =====
+local function syncEntsWithServer(ents, batched_info)
+  existing_ent_ids = {}
+  for ent_id, _ in pairs(batched_info) do
+    ent_id = tonumber(ent_id)
+    existing_ent_ids[ent_id] = true
+  end
+  ents:keep(existing_ent_ids)
+end
+
 local function union(t1, t2)
   new_t = {}
   for k, v in pairs(t1) do new_t[k] = v end
@@ -20,6 +29,7 @@ local function handleBatchedInfo(p)
     cmd_table.ents = p.ents
     commands:handle(cmd_table)
   end
+  syncEntsWithServer(p.ents, p.payload)
 end
 
 local function handleEntInfo(p)

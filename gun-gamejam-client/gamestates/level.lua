@@ -49,12 +49,12 @@ local keysReleased = {
 
 function love.keypressed(k)
   local binding = keysDown[k]
-  if udp == nil or binding == nil then return end
+  if udp == nil or binding == nil or player == nil then return end
   udp:send(encoder:encodeBinding(player, binding))
 end
 function love.keyreleased(k)
   local binding = keysReleased[k]
-  if udp == nil or binding == nil then return end
+  if udp == nil or binding == nil or player == nil then return end
   udp:send(encoder:encodeBinding(player, binding))
 end
 

@@ -47,6 +47,15 @@ function ents:updateState(ent_id, cmd, params)
   self.entMap[ent_id]:updateState(cmd, params)
 end
 
+function ents:keep(existing_ent_ids)
+  for ent_id, _ in pairs(self.entMap) do
+    if existing_ent_ids[ent_id] == nil then
+      print("removing ent_id = ", ent_id)
+      self:remove(ent_id)
+    end
+  end
+end
+
 function ents.factory(type, params)
   if type == utils.types.ent then
     return Ent(params)

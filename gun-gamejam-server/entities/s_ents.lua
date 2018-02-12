@@ -18,7 +18,8 @@ end
 -- ===== Ent methods =====
 function ents:update(dt)
   for _, e in pairs(self.entMap) do
-    e:update(dt, self.world)
+    bullet_collided = e:update(dt, self.world)
+    if bullet_collided then print("removing bullet!") self:remove(e.id) end
   end
 end
 

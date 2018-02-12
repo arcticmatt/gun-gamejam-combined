@@ -12,6 +12,7 @@ function Bullet:init(p)
   self.baseVelocity = 300
   self.owner = p.owner -- Player that shot the bullet
   assert(self.owner ~= nil)
+  self.collided = false
 end
 
 function Bullet:update(dt, world)
@@ -25,9 +26,12 @@ function Bullet:update(dt, world)
         if other.type == utils.types.bullet or other.id == self.owner.id then
           return false
         end
+        self.collided = true
         return 'slide'
     end
   )
+
+  return self.collided
 end
 
 return Bullet
