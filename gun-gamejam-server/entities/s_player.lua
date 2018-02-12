@@ -42,9 +42,10 @@ function Player:shoot(dt, bullet_id)
 
   -- Since we're here, shoot!
   -- TODO: mess with bullet size
-  print("Shooting bullet!")
   self.timeSinceLastShot = 0
-  return Bullet{x=self.x, y=self.y, w=10, h=10, kb=self.bullet_kb, udp=self.udp, id=bullet_id, owner=self}
+  -- Need to manually copy the vector
+  bullet_kb = vector(self.bullet_kb.x, self.bullet_kb.y)
+  return Bullet{x=self.x, y=self.y, w=10, h=10, kb=bullet_kb, udp=self.udp, id=bullet_id, owner=self}
 end
 
 return Player

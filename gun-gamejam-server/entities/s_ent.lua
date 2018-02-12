@@ -15,7 +15,11 @@ function Ent:init(p)
   self.udp = p.udp
   self.id = p.id
   self.type = utils.types.ent
-  self.kb = vector(0, 0)
+  if p.kb ~= nil then
+    self.kb = p.kb
+  else
+    self.kb = vector(0,0)
+  end
 end
 
 function Ent:getRect()

@@ -81,7 +81,6 @@ end
 function ents:getNextID()
   id = self.nextID
   self.nextID = id + 1
-  print('got id', id)
   return id
 end
 
